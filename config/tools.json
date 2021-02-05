@@ -19,6 +19,11 @@
           "name":"nishang",
           "url":"github.com/samratashok/nishang",
           "directory":"$HOME/payloads/nishang"
+        },
+        {
+          "name":"watson",
+          "url":"github.com/rasta-mouse/watson",
+          "directory":"$HOME/payloads/watson"
         }
     ],
 
