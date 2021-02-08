@@ -29,7 +29,6 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 - [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
 - [Nishang](https://github.com/samratashok/nishang)
-- [Watson](https://github.com/rasta-mouse/watson)
 
 ### Wordlists
 - [Jhaddix's](https://gist.github.com/jhaddix/f64c97d0863a78454e44c2f7119c2a6a)
@@ -66,3 +65,4 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [ShuffleDNS](https://github.com/projectdiscovery/shuffledns)
 - [Subfinder](https://github.com/projectdiscovery/subfinder)
 - [Nuclei](https://github.com/projectdiscovery/nuclei)
+- [Watson](https://github.com/rasta-mouse/watson)
