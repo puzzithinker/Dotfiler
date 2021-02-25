@@ -6,7 +6,7 @@ echo 'By using this script you agree that the developers assume no liability for
 user=$(whoami)
 cwd=$(echo $PWD)
 
-# Prepare Base Packages
+# prepare base packages
 echo 'Preparing Base Packages'
 # get update
 sudo apt-get update -qq
@@ -18,10 +18,12 @@ sudo apt install -y tmux
 sudo apt install -y jq
 # install pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
-# Install GoLang
+# install GoLang
 sudo apt install -y golang
+# install docker
+curl -fsSL get.docker.com | sh
 
-# Restore dot files
+# restore dot files
 echo 'Restoring Dot Files'
 sudo apt install -y stow
 cp -r ./dotfiles $HOME/
@@ -36,7 +38,7 @@ echo 'Configuring zsh'
 sudo chsh -s $(which zsh) $user
 touch $HOME/.z
 
-# Install Go Tools
+# install Go Tools
 echo 'Installing Go Tools'
 for line in $(cat $cwd/config/tools.json | jq -r '.go[] | select(.v11=="false") | [.name,.url] | @csv')
 do
@@ -54,7 +56,7 @@ do
   sudo /bin/su -l $user -c "GO111MODULE=on go get -v $url"
 done
 
-# Install Git Repos
+# install Git Repos
 echo 'Installing Git Repos'
 for line in $(cat $cwd/config/tools.json | jq -r '.git[] | [.name,.url,.directory] | @csv')
 do
@@ -65,13 +67,13 @@ do
   sudo /bin/su -l $user -c "git clone https://$url $directory"
 done
 
-# Install Git Repos pt2 (ones that need intervention)
+# install Git Repos pt2 (ones that need intervention)
 sudo git clone https://github.com/codingo/Interlace.git /opt/interlace && cd /opt/interlace/ && sudo python3 setup.py install
 git clone https://github.com/blechschmidt/massdns.git /tmp/massdns && cd /tmp/massdns && make && sudo mv bin/massdns /usr/bin/massdns
 wget -O /tmp/aquatone.zip https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip && cd /tmp/ && sudo unzip /tmp/aquatone.zip && sudo mv /tmp/aquatone $HOME/go/bin/aquatone
 wget -O /tmp/amass.zip https://github.com/OWASP/Amass/releases/download/v3.11.1/amass_linux_amd64.zip && cd /tmp/ && sudo unzip /tmp/amass.zip && sudo mv /tmp/amass_linux_amd64/amass $HOME/go/bin/amass
 
-# Install Wordlists
+# install Wordlists
 echo 'Installing Wordlists'
 for line in $(cat $cwd/config/tools.json | jq -r '.wordlists[] | [.name,.url,.directory] | @csv')
 do
@@ -91,7 +93,7 @@ wget -O $HOME/wordlists/jhaddix/dns_all.txt https://gist.github.com/jhaddix/86a0
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && cd /tmp/ && unzip awscliv2.zip && sudo ./aws/install
 aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists --no-sign-request
 
-# Ending
+# end
 echo 'Finished set up. Updating Machine...'
 sudo bash $cwd/config/updater.sh
 echo 'Completed!'
