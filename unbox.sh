@@ -22,6 +22,9 @@ python3 -m pip install --user pipx && python3 -m pipx ensurepath
 sudo apt install -y golang
 # install docker
 curl -fsSL get.docker.com | sh
+# on kali
+sudo apt install -y docker.io
+sudo systemctl enable docker --now
 
 # restore dot files
 echo 'Restoring Dot Files'
