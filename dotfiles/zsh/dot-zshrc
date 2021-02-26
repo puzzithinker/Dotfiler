@@ -32,6 +32,12 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# functions
+
+function postfiledumphere() {
+    docker run --rm -it -p80:3000 -v "${PWD}:/data" rflathers/postfiledump
+}
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
