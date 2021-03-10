@@ -98,5 +98,5 @@ aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists -
 
 # end
 echo 'Finished set up. Updating Machine...'
-sudo bash $cwd/config/updater.sh
+bash $cwd/config/updater.sh
 echo 'Completed!'
