@@ -1,9 +1,9 @@
 {
     "git":[
         {
-            "name":"gf-patterns",
-            "url":"github.com/1ndianl33t/Gf-Patterns",
-            "directory":"$HOME/.gf"
+          "name":"gf-patterns",
+          "url":"github.com/1ndianl33t/Gf-Patterns",
+          "directory":"$HOME/.gf"
         },
         {
           "name":"payloadsallthethings",
@@ -25,7 +25,7 @@
           "url":"github.com/rasta-mouse/watson",
           "directory":"$HOME/payloads/watson"
         },
-                {
+        {
           "name":"impacket",
           "url":"github.com/SecureAuthCorp/impacket",
           "directory":"$HOME/payloads/impacket"
