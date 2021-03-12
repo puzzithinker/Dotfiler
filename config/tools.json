@@ -24,6 +24,16 @@
           "name":"watson",
           "url":"github.com/rasta-mouse/watson",
           "directory":"$HOME/payloads/watson"
+        },
+                {
+          "name":"impacket",
+          "url":"github.com/SecureAuthCorp/impacket",
+          "directory":"$HOME/payloads/impacket"
+        },
+        {
+          "name":"evil-winrm",
+          "url":"github.com/Hackplayers/evil-winrm",
+          "directory":"$HOME/payloads/evil-winrm"
         }
     ],
 
