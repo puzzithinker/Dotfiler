@@ -95,6 +95,9 @@ wget -O $HOME/wordlists/jhaddix/dns_all.txt https://gist.github.com/jhaddix/86a0
 # install aws cli
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && cd /tmp/ && unzip awscliv2.zip && sudo ./aws/install
 aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists --no-sign-request
+# custom wordlists
+cp -r ./dotfiles/wordlists $HOME/wordlists/custom/
+
 
 # end
 echo 'Finished set up. Updating Machine...'
