@@ -14,10 +14,6 @@ export ZSH=$HOME/.oh-my-zsh
 # Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-
 # Plugins
 plugins=(z golang docker vagrant zsh-syntax-highlighting)
 
@@ -25,20 +21,133 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# nmap
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+nmap_quick(){
+sudo nmap -sS -sCV -T4 -Pn --top-ports 5000 -oN ./nmap-quick-$1-5000p-%R-%D.txt --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+}
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+nmap_ss(){
+sudo nmap -sS -T4 -Pn -p- -oN ./nmap-ss-$1-65535p-%R-%D.txt --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+}
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+nmap_su(){
+sudo nmap -sU -T4 -Pn -p- -oN ./nmap-su-$1-65535p-%R-%D.txt --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+}
+
+nmap_vuln(){
+sudo nmap -sSCV -Pn -p$2 -oN ./nmap-ss-$1-vuln-%R-%D.txt --max-retries 4 --host-timeout 90m  --script-timeout 90m --script vuln $1
+}
+
+# ffuf (thank you rez0)
+ffuf_quick_dir()
+{
+	dom=$(echo $1 | unfurl format %s%d)
+	ffuf -c -v -u $1/FUZZ -w $DIRS_SMALL \
+	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+	-H "X-Custom-Header: Ignore" -ac -mc all -o quick_$dom.csv \
+	-of csv $2 -maxtime 360 $3
+}
+
+ffuf_quick_file()
+{
+	dom=$(echo $1 | unfurl format %s%d)
+	ffuf -c -v -u $1/FUZZ -w $FILES_SMALL \
+	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+	-H "X-Custom-Header: Ignore" -ac -mc all -o quick_$dom.csv \
+	-of csv $2 -maxtime 360 $3
+}
+
+ffuf_recursive()
+# takes a param of a url and a wordlist
+{
+  mkdir -p recursive
+  dom=$(echo $1 | unfurl format %s%d)
+  ffuf -c -v -u $1/FUZZ -w $2 -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+    -H "X-Custom-Header: Ignore" -recursion -recursion-depth 5 -mc all -ac \
+    -o recursive/recursive_$dom.csv -of csv $3
+  }
+
+ffuf_vhost(){
+	dom=$(echo $1 | unfurl format %s%d)
+	ffuf -c -u $1 -H "Host: FUZZ" -w vhosts.txt \
+	-H "X-Header-Custom: Ignore" -ac -mc all -fc 400,404 -o vhost_$dom.csv \
+	-of csv -maxtime 120
+}
+
+findcsvsummary(){
+    find -name "*.csv" -exec cat {} \; | grep ,200, \
+	| sed 's/,/ /g' | sort -k 5,5 -u -n | vim -
+}
+
+# nuclei (thanks rez0)
+nuclei_site(){
+    echo $1 | nuclei -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
+		-t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
+		-t miscellaneous/dir-listing.yaml -pbar -c 30
+}
+nuclei_file(){
+    nuclei -l $1 -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
+		-t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
+		-t miscellaneous/dir-listing.yaml -pbar -c 50
+}
+
+# http verb tampering (thanks rez0)
+tamper() {
+    echo -n "$1: "; for i in GET POST HEAD PUT DELETE CONNECT OPTIONS TRACE PATCH ASDF; \
+	do echo "echo -n \"$i-$(curl -k -s -X $i $1 -o /dev/null -w '%{http_code}') \""; done \
+	| parallel -j 10 ; echo
+}
+
+# misc (thanks rez0)
+
+# axiom
+makefleet(){
+    fleet=$1
+
+    total=0
+    while [[ "$total" -lt $2 ]];
+    do
+        axiom-fleet "$fleet" -i=10
+        total=$((total+10))
+        echo "Spun up $total"
+        sleep 60
+    done
+}
+
+# cidr2ip
+cidr2ip(){
+	nmap -sL $1 | awk '/Nmap scan report/{print $NF}'
+}
+
+# wordlists
+add_to_dir_wls(){
+	echo $1 | anew ~/wordlists/custom/directories.txt
+	echo $1 | anew ~/wordlists/custom/all.txt
+}
+
+add_to_file_wls(){
+	echo $1 | anew ~/wordlists/custom/files.txt
+	echo $1 | anew ~/wordlists/custom/all.txt
+}
+
+add_to_dir_wls_from_file(){
+	while read line;do add_to_dir_wls $line;done < $1
+}
+
+add_to_file_wls_from_file(){
+	while read line;do add_to_file_wls $line;done < $1
+}
+
+# variables
+
+export DIRS_LARGE=~/wordlists/seclists/Discovery/Web-Content/raft-large-directories.txt
+export DIRS_SMALL=~/wordlists/seclists/Discovery/Web-Content/raft-small-directories.txt
+
+export FILES_LARGE=~/wordlists/seclists/Discovery/Web-Content/raft-large-files.txt
+export FILES_SMALL=~/wordlists/seclists/Discovery/Web-Content/raft-small-files.txt
+
+
 
 # Aliases
 alias ll='ls -l'                                                                                                                                         
