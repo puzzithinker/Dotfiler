@@ -10,8 +10,6 @@ cwd=$(echo $PWD)
 echo 'Preparing Base Packages'
 # get update
 sudo apt-get update -qq
-# install SpaceVim
-curl -sLf https://spacevim.org/install.sh | bash
 # install tmux
 sudo apt install -y tmux
 # install jq
