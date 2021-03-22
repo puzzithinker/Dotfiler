@@ -83,7 +83,7 @@ ffuf_custom_paths_files_ext()
 # takes a param of a url and a directory wordlist
 {
   dom=$(echo $1 | unfurl format %s%d)
-  ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_LARGE:FUZZ -w $EXT:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+  ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_LARGE:FUZZ -w $EXT_LARGE:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
     -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
     -o ffuf_custom_paths_file_ext_$dom.csv -of csv $3
   }
