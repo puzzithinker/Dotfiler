@@ -95,7 +95,7 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv
 aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists --no-sign-request
 # custom wordlists
 cp -r $cwd/config/wordlists $HOME/wordlists/custom/
-$ set up vimprev
+# set up vimprev
 sudo cp $cwd/config/vimprev /bin/vimprev
 
 
