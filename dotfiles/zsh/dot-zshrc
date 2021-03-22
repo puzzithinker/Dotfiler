@@ -21,6 +21,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# docker (thanks pry0cc & ropnop)
+
 # nmap
 
 nmap_quick(){
@@ -43,18 +45,18 @@ sudo nmap -sSCV -Pn -p$2 -oN ./nmap-ss-$1-vuln-%R-%D.txt --max-retries 4 --host-
 ffuf_quick_dir()
 {
 	dom=$(echo $1 | unfurl format %s%d)
-	ffuf -c -v -u $1/FUZZ -w $DIRS_SMALL \
+	ffuf -c -v -u $1/FUZZ -w $DIRS_LARGE \
 	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-	-H "X-Custom-Header: Ignore" -ac -mc all -o quick_$dom.csv \
+	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -o ffuf_quick_dirs_$dom.csv \
 	-of csv $2 -maxtime 360 $3
 }
 
 ffuf_quick_file()
 {
 	dom=$(echo $1 | unfurl format %s%d)
-	ffuf -c -v -u $1/FUZZ -w $FILES_SMALL \
+	ffuf -c -v -u $1/FUZZ -w $FILES_LARGE \
 	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-	-H "X-Custom-Header: Ignore" -ac -mc all -o quick_$dom.csv \
+	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -o ffuf_quick_files_$dom.csv \
 	-of csv $2 -maxtime 360 $3
 }
 
@@ -64,20 +66,38 @@ ffuf_recursive()
   mkdir -p recursive
   dom=$(echo $1 | unfurl format %s%d)
   ffuf -c -v -u $1/FUZZ -w $2 -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-    -H "X-Custom-Header: Ignore" -recursion -recursion-depth 5 -mc all -ac \
-    -o recursive/recursive_$dom.csv -of csv $3
+    -H "X-Forwarded-For: 127.0.0.1" -recursion -recursion-depth 5 -mc all -ac \
+    -o recursive/ffuf_recursive_$dom.csv -of csv $3
+  }
+
+ffuf_custom_paths()
+# takes a param of a url and a directory wordlist
+{
+  dom=$(echo $1 | unfurl format %s%d)
+  ffuf -c -v -u $1/DIR/FUZZ -w $2:DIR -w $FILES_LARGE:FUZZ -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+    -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
+    -o ffuf_custom_paths_$dom.csv -of csv $3
+  }
+
+ffuf_custom_paths_files_ext()
+# takes a param of a url and a directory wordlist
+{
+  dom=$(echo $1 | unfurl format %s%d)
+  ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_LARGE:FUZZ -w $EXT:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+    -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
+    -o ffuf_custom_paths_file_ext_$dom.csv -of csv $3
   }
 
 ffuf_vhost(){
 	dom=$(echo $1 | unfurl format %s%d)
 	ffuf -c -u $1 -H "Host: FUZZ" -w vhosts.txt \
-	-H "X-Header-Custom: Ignore" -ac -mc all -fc 400,404 -o vhost_$dom.csv \
+	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -fc 400,404 -o vhost_$dom.csv \
 	-of csv -maxtime 120
 }
 
-findcsvsummary(){
-    find -name "*.csv" -exec cat {} \; | grep ,200, \
-	| sed 's/,/ /g' | sort -k 5,5 -u -n | vim -
+ffuf_summary(){
+  find -name "ffuf*.csv" -exec cat {} \; | grep ,200, \
+  | grep -v "# " | awk -F"http*://" '/http*:/{print $2}' | sed 's/,/ /g' | sort -k 5,5 -u -n | sed 's/^/http*:\/\//g' | vim -
 }
 
 # nuclei (thanks rez0)
@@ -99,9 +119,14 @@ tamper() {
 	| parallel -j 10 ; echo
 }
 
-# misc (thanks rez0)
+# misc
 
-# axiom
+# convert .bin to shellcode (thanks pry0cc)
+function bin2sc {
+    hexdump -v -e '"\\""x" 1/1 "%02x" ""' ${1}
+}
+
+# axiom (thanks rez0)
 makefleet(){
     fleet=$1
 
@@ -139,15 +164,22 @@ add_to_file_wls_from_file(){
 	while read line;do add_to_file_wls $line;done < $1
 }
 
-# variables
+# vars
 
-export DIRS_LARGE=~/wordlists/seclists/Discovery/Web-Content/raft-large-directories.txt
-export DIRS_SMALL=~/wordlists/seclists/Discovery/Web-Content/raft-small-directories.txt
+export DIRS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-directories.txt
+export DIRS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-directories.txt
 
-export FILES_LARGE=~/wordlists/seclists/Discovery/Web-Content/raft-large-files.txt
-export FILES_SMALL=~/wordlists/seclists/Discovery/Web-Content/raft-small-files.txt
+export FILES_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-files.txt
+export FILES_LARGE=~/wordlists/assetnote-wordlists/manual/raft-small-files.txt
 
+export WORDS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-words.txt
+export WORDS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-words.txt
 
+export EXT_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-extensions.txt
+export EXT_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-extensions.txt
+
+export CUST_DIRS=~/wordlists/custom/directories.txt
+export CUST_DIRS=~/wordlists/custom/files.txt
 
 # Aliases
 alias ll='ls -l'                                                                                                                                         
@@ -155,6 +187,7 @@ alias la='ls -A'
 alias l='ls -CF'                                                                                                                                         
 alias ls='ls --color -latx'
 alias ungron="gron --ungron"
+alias ipez="ip -c -br a"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
