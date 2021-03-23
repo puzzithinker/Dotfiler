@@ -197,3 +197,5 @@ export GOROOT=/usr/lib/go
 export GOPATH=$HOME/go                                                                                                                                   
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export TERM="xterm-256color"
+source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.zsh
+
