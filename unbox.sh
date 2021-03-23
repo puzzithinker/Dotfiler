@@ -29,6 +29,7 @@ echo 'Restoring Dot Files'
 sudo apt install -y stow
 cp -r ./dotfiles $HOME/
 cd $HOME/dotfiles/zsh/ && tar -xf $HOME/dotfiles/zsh/dot-oh-my-zsh.tar.gz; rm -f $HOME/dotfiles/zsh/dot-oh-my-zsh.tar.gz
+cd $HOME/dotfiles/vim/ && tar -xf $HOME/dotfiles/vim/dot-vim.gz; rm -f $HOME/dotfiles/vim/dot-vim.tar.gz
 # stow all dotfiles
 for dir in $HOME/dotfiles/*; do
   cd $HOME/dotfiles/ && stow --dotfiles $(echo $dir | awk '{gsub(/\/.*\//,"",$1); print}')
