@@ -10,14 +10,13 @@ Dotfiler
 ```
 
 ## Features
-**Dotfiler** is an automated installer that sets up several network and web application penetration testing tools setting up new environments quickly. Configuration dotfiles can be stored within the dotfiles folder to be automatically symbolic linked with `stow` for easy administration. Users who maintain their dotfiles in a VCS can quickly swap the folder contents for their own presets. **Dotfiler** also configures standard tools, installs wordlists, and installs high-performance tools written in Golang and Bash (see tools.json) that are not found in out of the box distros. Customization is quickly done by editing the configuration files of the project.
+**Dotfiler** is an automated installer that sets up several network and web application penetration testing tools setting up new environments quickly. Configuration dotfiles can be stored within the dotfiles folder to be automatically symbolic linked with `stow` for easy administration. Users who maintain their dotfiles in a VCS can quickly swap the folder contents for their own presets.
 
 Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.com/pry0cc).
 
 ## Tools
 
 ### Packages
-- [SpaceVim](https://spacevim.org/)
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Oh My Tmux](https://github.com/gpakosz/.tmux)
 - [Pipx](https://github.com/pipxproject/pipx)
@@ -29,6 +28,13 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 - [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
 - [Nishang](https://github.com/samratashok/nishang)
+
+### Vim
+- [nerdtree](https://github.com/preservim/nerdtree)
+- [vim-fugitive](https://github.com/tpope/vim-fugitive)
+- [vim-airline](https://github.com/vim-airline/vim-airline)
+- [vim-go](https://github.com/fatih/vim-go)
+- [vimprev](https://github.com/tomnomnom)
 
 ### Wordlists
 - [Jhaddix's](https://gist.github.com/jhaddix/f64c97d0863a78454e44c2f7119c2a6a)
