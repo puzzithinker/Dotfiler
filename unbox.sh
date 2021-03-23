@@ -95,6 +95,8 @@ aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists -
 cp -r $cwd/config/wordlists $HOME/wordlists/custom/
 # set up vimprev
 sudo cp $cwd/config/vimprev /bin/vimprev
+# copy over gf patterns
+cp -r $GOPATH/src/github.com/tomnomnom/gf/examples/* ~/.gf
 
 
 # end
