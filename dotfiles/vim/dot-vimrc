@@ -4,7 +4,23 @@ set nocompatible
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
-" TODO: Load plugins here (pathogen or vundle)
+" Load plugins here (vundle)
+set rtp+=~/.vim/bundle/vundle/
+let g:vundle_default_git_proto = 'git'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Bundles
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'scrooloose/nerdtree'
+Plugin 'fatih/vim-go'
+
+call vundle#end()
 
 " Turn on syntax highlighting
 syntax on
@@ -20,25 +36,27 @@ set modelines=0
 
 " Show line numbers
 set number
+set relativenumber
 
 " Show file stats
 set ruler
 
-" Blink cursor on error instead of beeping (grr)
+" Remove blinking and flashing on error
 set visualbell
+set t_vb=
 
 " Encoding
 set encoding=utf-8
 
-" Whitespace
+" Whitespace and Indentation
 set wrap
 set textwidth=79
 set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
-set noshiftround
+set shiftround
 
 " Cursor motion
 set scrolloff=3
@@ -71,30 +89,38 @@ set incsearch
 set ignorecase
 set smartcase
 set showmatch
-map <leader><space> :let @/=''<cr> " clear search
+set gdefault
+
 
 " Remap help key.
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 nnoremap <F1> :set invfullscreen<CR>
 vnoremap <F1> :set invfullscreen<CR>
 
-" Textmate holdouts
+" Line wrapping
+set nowrap
+set linebreak
 
-" Formatting
-map <leader>q gqip
+" Auto indent what you can
+set autoindent
 
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default:
-" set list " To enable by default
-" Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
+" Visual prompt for command completion
+set wildmenu
+
+" code folding
+set nofoldenable
 
 " Color scheme (terminal)
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
+colorscheme deus
+
+" Airline config
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='deus'
 
 " vimprev
 if $VIMENV == 'talk'
