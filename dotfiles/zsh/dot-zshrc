@@ -100,7 +100,7 @@ ffuf_vhost(){
 }
 
 ffuf_summary(){
-    find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/    /g' | grep -v '#' | sort -u | vim -
+    find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/    /g' | grep -v '# ' | sort -u | vim -
 }
 
 # nuclei (thanks rez0)
