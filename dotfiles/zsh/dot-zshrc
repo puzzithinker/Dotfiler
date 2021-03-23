@@ -93,7 +93,7 @@ ffuf_vhost(){
     domain=$(echo $1 | unfurl format %d)
     rootdom=$(echo $1 | unfurl format %r)
     # creates a local wordlist with domain and root domain subs
-    cat ~/wordlists/custom/vhosts.txt | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
+    cat $VHOST_SMALL | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
 	ffuf -c -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt \
 	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv \
 	-of csv
