@@ -8,16 +8,13 @@ cwd=$(echo $PWD)
 
 # prepare base packages
 echo 'Preparing Base Packages'
-# get update
+
 sudo apt-get update -qq
-# install tmux
-sudo apt install -y tmux
-# install jq
-sudo apt install -y jq
-# install pipx
+sudo apt install -y tmux jq golang parallel
+
+# pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
-# install GoLang
-sudo apt install -y golang
+
 # install docker
 curl -fsSL get.docker.com | sh
 # on kali
@@ -69,7 +66,7 @@ do
   sudo /bin/su -l $user -c "git clone https://$url $directory"
 done
 
-# install Git Repos pt2 (ones that need intervention)
+# Install manual tools
 sudo git clone https://github.com/codingo/Interlace.git /opt/interlace && cd /opt/interlace/ && sudo python3 setup.py install
 git clone https://github.com/blechschmidt/massdns.git /tmp/massdns && cd /tmp/massdns && make && sudo mv bin/massdns /usr/bin/massdns
 wget -O /tmp/aquatone.zip https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip && cd /tmp/ && sudo unzip /tmp/aquatone.zip && sudo mv /tmp/aquatone $HOME/go/bin/aquatone
