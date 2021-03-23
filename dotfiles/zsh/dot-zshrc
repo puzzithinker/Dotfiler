@@ -48,7 +48,7 @@ ffuf_quick_dir()
 	ffuf -c -v -u $1/FUZZ -w $DIRS_LARGE \
 	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
 	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -o ffuf_quick_dirs_$dom.csv \
-	-of csv $2 -maxtime 360 $3
+	-of csv -maxtime 360
 }
 
 ffuf_quick_file()
@@ -57,7 +57,7 @@ ffuf_quick_file()
 	ffuf -c -v -u $1/FUZZ -w $FILES_LARGE \
 	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
 	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -o ffuf_quick_files_$dom.csv \
-	-of csv $2 -maxtime 360 $3
+	-of csv -maxtime 360
 }
 
 ffuf_recursive()
@@ -67,7 +67,7 @@ ffuf_recursive()
   dom=$(echo $1 | unfurl format %s%d)
   ffuf -c -v -u $1/FUZZ -w $2 -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
     -H "X-Forwarded-For: 127.0.0.1" -recursion -recursion-depth 5 -mc all -ac \
-    -o recursive/ffuf_recursive_$dom.csv -of csv $3
+    -o recursive/ffuf_recursive_$dom.csv -of csv
   }
 
 ffuf_custom_paths()
@@ -76,7 +76,7 @@ ffuf_custom_paths()
   dom=$(echo $1 | unfurl format %s%d)
   ffuf -c -v -u $1/DIR/FUZZ -w $2:DIR -w $FILES_LARGE:FUZZ -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
     -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
-    -o ffuf_custom_paths_$dom.csv -of csv $3
+    -o ffuf_custom_paths_$dom.csv -of csv
   }
 
 ffuf_custom_paths_files_ext()
@@ -85,19 +85,22 @@ ffuf_custom_paths_files_ext()
   dom=$(echo $1 | unfurl format %s%d)
   ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_LARGE:FUZZ -w $EXT_LARGE:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
     -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
-    -o ffuf_custom_paths_file_ext_$dom.csv -of csv $3
+    -o ffuf_custom_paths_file_ext_$dom.csv -of csv
   }
 
 ffuf_vhost(){
 	dom=$(echo $1 | unfurl format %s%d)
-	ffuf -c -u $1 -H "Host: FUZZ" -w vhosts.txt \
-	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -fc 400,404 -o vhost_$dom.csv \
-	-of csv -maxtime 120
+    domain=$(echo $1 | unfurl format %d)
+    rootdom=$(echo $1 | unfurl format %r)
+    # creates a local wordlist with domain and root domain subs
+    cat ~/wordlists/custom/vhosts.txt | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
+	ffuf -c -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt \
+	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv \
+	-of csv
 }
 
 ffuf_summary(){
-  find -name "ffuf*.csv" -exec cat {} \; | grep ,200, \
-  | grep -v "# " | awk -F"http*://" '/http*:/{print $2}' | sed 's/,/ /g' | sort -k 5,5 -u -n | sed 's/^/http*:\/\//g' | vim -
+    find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/    /g' | grep -v '#' | sort -u | vim -
 }
 
 # nuclei (thanks rez0)
@@ -180,6 +183,9 @@ export EXT_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-extensions.tx
 
 export CUST_DIRS=~/wordlists/custom/directories.txt
 export CUST_FILES=~/wordlists/custom/files.txt
+
+export VHOST_LARGE=~/wordlists/custom/xl-vhosts.txt
+export VHOST_SMALL=~/wordlists/custom/vhosts.txt
 
 # Aliases
 alias ll='ls -l'                                                                                                                                         
