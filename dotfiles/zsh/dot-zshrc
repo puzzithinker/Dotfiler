@@ -179,7 +179,7 @@ export EXT_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-extensions.tx
 export EXT_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-extensions.txt
 
 export CUST_DIRS=~/wordlists/custom/directories.txt
-export CUST_DIRS=~/wordlists/custom/files.txt
+export CUST_FILES=~/wordlists/custom/files.txt
 
 # Aliases
 alias ll='ls -l'                                                                                                                                         
