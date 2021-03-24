@@ -41,6 +41,11 @@ nmap_vuln(){
 sudo nmap -sSCV -Pn -p$2 -oN ./nmap-ss-$1-vuln-%R-%D.txt --max-retries 4 --host-timeout 90m  --script-timeout 90m --script vuln $1
 }
 
+nmapprev(){
+find -type f -name 'nmap-*' -exec cat {} \; | grep open | grep -E '[0-9]' | grep -v '|' | sort -u
+}
+
+
 # ffuf (thank you rez0)
 ffuf_quick_dir()
 {
