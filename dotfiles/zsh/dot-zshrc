@@ -95,37 +95,50 @@ ffuf_vhost(){
     # creates a local wordlist with domain and root domain subs
     cat $VHOST_SMALL | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
 	ffuf -c -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt \
-	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv \
+	-H "X-Forwarded-For: 127.0.0.1" -H "User-Agent: Mozilla Firefox Mozilla/5.0" -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv \
 	-of csv
 }
 
-ffuf_summary(){
-    find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/    /g' | grep -v '# ' | sort -u | vim -
+ffuf_preview(){
+    find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/    /g' | grep -v '#' | sort -u | vim -
 }
 
 # nuclei (thanks rez0)
 nuclei_site(){
     echo $1 | nuclei -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
 		-t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
-		-t miscellaneous/dir-listing.yaml -pbar -c 30
+		-t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 30
 }
 nuclei_file(){
     nuclei -l $1 -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
 		-t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
-		-t miscellaneous/dir-listing.yaml -pbar -c 50
+		-t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 50
 }
 
 # http verb tampering (thanks rez0)
-tamper() {
+tamper_verbs() {
     echo -n "$1: "; for i in GET POST HEAD PUT DELETE CONNECT OPTIONS TRACE PATCH ASDF; \
 	do echo "echo -n \"$i-$(curl -k -s -X $i $1 -o /dev/null -w '%{http_code}') \""; done \
 	| parallel -j 10 ; echo
 }
 
-# misc
+# httprobe wrapper (thanks rez0)
+httprobemore(){
+	httprobe -p http:8000 -p https:9443 -p http:8080 -p https:8443 \
+        -p http:81 -p http:591 -p http:2082 -p http:2087 -p http:2095 -p http:2096 -p http:3000 -p http:8001 -p http:8008 \
+        -p http:8080 -p http:8083 -p http:8834 -p http:8888 -p https:81 -p https:591 -p https:2082 -p https:2087 -p https:2095 \
+        -p https:2096 -p https:3000 -p https:8001 -p https:8008 -p https:8080 -p https:8083 -p https:8834 -p https:8888 \
+        -c 50 -t 1000
+}
+
+# linkfinder <URL/*.js> (thanks rez0)
+linkfinder_paths(){
+	python3 ~/tools/linkfinder/linkfinder.py -i $1 -o cli \
+	| grep -v http | grep -v // | sed 's/^\.\//\//' | sed 's/^\///'
+}
 
 # convert .bin to shellcode (thanks pry0cc)
-function bin2sc {
+function bin2shellcode {
     hexdump -v -e '"\\""x" 1/1 "%02x" ""' ${1}
 }
 
