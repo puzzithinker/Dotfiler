@@ -99,7 +99,7 @@ ffuf_vhost(){
 	-of csv
 }
 
-ffuf_preview(){
+ffufprev(){
     find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/ /g' | grep -v '#' | sort -u | column -t -s' '  |vim -
 }
 
