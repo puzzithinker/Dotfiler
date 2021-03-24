@@ -34,7 +34,12 @@
           "name":"evil-winrm",
           "url":"github.com/Hackplayers/evil-winrm",
           "directory":"$HOME/payloads/evil-winrm"
-        }
+        },
+        {
+          "name":"linkfinder",
+          "url":"github.com/GerbenJavado/LinkFinder",
+          "directory":"$HOME/tools/linkfinder"
+        },
     ],
 
     "wordlists":[
