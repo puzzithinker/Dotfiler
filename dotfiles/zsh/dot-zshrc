@@ -142,6 +142,12 @@ linkfinder_paths(){
 	| grep -v http | grep -v // | sed 's/^\.\//\//' | sed 's/^\///'
 }
 
+# secretfinder <URL>
+secretfinder_url(){
+	python3 SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
+}
+
+
 # convert .bin to shellcode (thanks pry0cc)
 function bin2shellcode {
     hexdump -v -e '"\\""x" 1/1 "%02x" ""' ${1}
