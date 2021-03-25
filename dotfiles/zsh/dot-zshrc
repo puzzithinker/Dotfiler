@@ -42,9 +42,8 @@ sudo nmap -sSCV -Pn -p$2 -oN ./nmap-ss-$1-vuln-%R-%D.txt --max-retries 4 --host-
 }
 
 nmapprev(){
-find -type f -name 'nmap-*' -exec cat {} \; | grep open | grep -E '[0-9]' | grep -v '|' | sort -u
+    find -type f -name 'nmap-*' -exec cat {} \; | grep open | grep -E '[0-9]' | grep -v '|' | sort -u 
 }
-
 
 # ffuf (thank you rez0)
 ffuf_quick_dir()
@@ -68,11 +67,10 @@ ffuf_quick_file()
 ffuf_recursive()
 # takes a param of a url and a wordlist
 {
-  mkdir -p recursive
   dom=$(echo $1 | unfurl format %s%d)
   ffuf -c -v -u $1/FUZZ -w $2 -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
     -H "X-Forwarded-For: 127.0.0.1" -recursion -recursion-depth 5 -mc all -ac \
-    -o recursive/ffuf_recursive_$dom.csv -of csv
+    -o ffuf_recursive_$dom.csv -of csv
   }
 
 ffuf_custom_paths()
@@ -84,11 +82,20 @@ ffuf_custom_paths()
     -o ffuf_custom_paths_$dom.csv -of csv
   }
 
+ffuf_file_ext()
+# takes a param of a url and a directory wordlist
+{
+  dom=$(echo $1 | unfurl format %s%d)
+  ffuf -c -v -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+    -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
+    -o ffuf_custom_paths_$dom.csv -of csv
+  }
+
 ffuf_custom_paths_files_ext()
 # takes a param of a url and a directory wordlist
 {
   dom=$(echo $1 | unfurl format %s%d)
-  ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_LARGE:FUZZ -w $EXT_LARGE:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
+  ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_SMALL:FUZZ -w $EXT_SMALL:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
     -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
     -o ffuf_custom_paths_file_ext_$dom.csv -of csv
   }
@@ -144,9 +151,8 @@ linkfinder_paths(){
 
 # secretfinder <URL>
 secretfinder_url(){
-	python3 SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
+    python3 SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
 }
-
 
 # convert .bin to shellcode (thanks pry0cc)
 function bin2shellcode {
@@ -197,7 +203,7 @@ export DIRS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-directories.
 export DIRS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-directories.txt
 
 export FILES_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-files.txt
-export FILES_LARGE=~/wordlists/assetnote-wordlists/manual/raft-small-files.txt
+export FILES_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-files.txt
 
 export WORDS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-words.txt
 export WORDS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-words.txt
