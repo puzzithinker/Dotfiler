@@ -39,6 +39,11 @@
           "name":"linkfinder",
           "url":"github.com/GerbenJavado/LinkFinder",
           "directory":"$HOME/tools/linkfinder"
+        },
+        {
+          "name":"secretfinder",
+          "url":"github.com/m4ll0k/SecretFinder",
+          "directory":"$HOME/tools/secretfinder"
         }
     ],
 
