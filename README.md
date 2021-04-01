@@ -2,7 +2,7 @@
 Dotfiler
 </h1>
 
-**Dotfiler** is a Bash tool to quickly set up Kali/Parrot/Debian machines with personal presets.
+**Dotfiler** is a Bash tool to quickly set up Kali/Parrot machines with personal presets.
 
 ## Install
 ```bash
