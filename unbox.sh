@@ -92,7 +92,7 @@ wget -O $HOME/wordlists/jhaddix/dns_all.txt https://gist.github.com/jhaddix/86a0
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && cd /tmp/ && unzip awscliv2.zip && sudo ./aws/install
 aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists --no-sign-request
 # custom wordlists
-cp -r $cwd/config/wordlists/* $HOME/wordlists/custom/
+cp -r $cwd/config/wordlists $HOME/wordlists/custom
 # set up vimprev
 sudo cp $cwd/config/vimprev /bin/vimprev
 # copy over gf patterns
