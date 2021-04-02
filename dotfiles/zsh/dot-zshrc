@@ -221,7 +221,7 @@ export VHOST_SMALL=~/wordlists/custom/vhosts.txt
 alias ll='ls -l'                                                                                                                                         
 alias la='ls -A'                                                                                                                                         
 alias l='ls -CF'                                                                                                                                         
-alias ls='ls --color -latx'
+alias ls='ls --color -lax'
 alias ungron="gron --ungron"
 alias ipez="ip -c -br a"
 
