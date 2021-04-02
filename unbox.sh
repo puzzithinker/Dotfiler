@@ -10,7 +10,7 @@ cwd=$(echo $PWD)
 echo 'Preparing Base Packages'
 
 sudo apt-get update -qq
-sudo apt install -y tmux jq golang parallel
+sudo apt install -y tmux jq golang parallel fonts-powerline
 
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
