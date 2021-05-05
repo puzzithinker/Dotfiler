@@ -1,0 +1,25 @@
+[http]
+    headers = [
+        "User-Agent: Mozilla Firefox Mozilla/5.0",
+        "X-Forwarded-For: 0.0.0.0"
+    ]
+    method = "GET"
+    proxyurl = "http://127.0.0.1:8080"
+
+[general]
+    autocalibration = true
+    colors = true
+    threads = 40
+    verbose = true
+
+[input]
+
+
+[output]
+    outputformat = "csv"
+    outputcreateemptyfile = false
+
+[filter]
+
+[matcher]
+    status = "200,204,301,302,307,401,403,405"
