@@ -1,13 +1,25 @@
 [http]
     headers = [
-        "User-Agent: Mozilla Firefox Mozilla/5.0",
-        "X-Forwarded-For: 0.0.0.0"
+        "User-Agent: Mozilla Firefox Mozilla/5.0"
     ]
     method = "GET"
     proxyurl = "http://127.0.0.1:8080"
 
 [general]
     autocalibration = true
+    autocalibrationstrings = [
+    "randomtest",
+    "admin",
+    "adminXVlBzgbaiCMRAjWw/",
+    ".adminXVlBzgbaiCMRAjWw/",
+    ".adminXVlBzgbaiCMRAjWw",
+    "adminXVlBzgbaiCMRAjWw.jWw",
+    "adminXVlBzgbaiCMRAjWw.php",
+    "adminXVlBzgbaiCMRAjWw.html",
+    "adminXVlBzgbaiCMRAjWw.txt",
+    "adminXVlBzgbaiCMRAjWw.aspx",
+    "adminXVlBzgbaiCMRAjWw.js"
+    ] 
     colors = true
     threads = 40
     verbose = true
