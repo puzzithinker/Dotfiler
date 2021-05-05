@@ -26,94 +26,59 @@ source $ZSH/oh-my-zsh.sh
 # nmap
 
 nmap_quick(){
-sudo nmap -sS -sCV -T4 -Pn --top-ports 5000 -oA ./nmap-quick-$1-5000p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+    sudo nmap -sS -sCV -T4 -Pn --top-ports 5000 -oA ./nmap-quick-$1-5000p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
 }
 
 nmap_ss(){
-sudo nmap -sS -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+    sudo nmap -sS -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
 }
 
 nmap_su(){
-sudo nmap -sU -T4 -Pn -p- -oA ./nmap-su-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
-}
-
-# arg(target,ports)
-nmap_vuln(){
-sudo nmap -sSCV -Pn -p$2 -oA ./nmap-ss-$1-vuln-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script vuln $1
+    sudo nmap -sU -T4 -Pn -p- -oA ./nmap-su-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
 }
 
 nmapprev(){
     find -type f -name 'nmap-*.gnmap' -exec cat {} \; | grep 'Host' | sort -u | grep -vi 'up' | vi - 
 }
 
+nsearch(){
+    ls -l /usr/share/nmap/scripts/* | grep -i '$1' | awk -F 'scripts/' '{ print $2 }'
+}
+
 # ffuf (thank you rez0)
-ffuf_quick_dir()
-{
-	dom=$(echo $1 | unfurl format %s%d)
-	ffuf -c -v -u $1/FUZZ -w $DIRS_LARGE \
-	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -o ffuf_quick_dirs_$dom.csv \
-	-of csv -maxtime 360
+ffuf_quick_dir(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    ffuf -c -v -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv -maxtime 360
 }
 
-ffuf_quick_file()
-{
-	dom=$(echo $1 | unfurl format %s%d)
-	ffuf -c -v -u $1/FUZZ -w $FILES_LARGE \
-	-H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-	-H "X-Forwarded-For: 127.0.0.1" -ac -mc all -o ffuf_quick_files_$dom.csv \
-	-of csv -maxtime 360
+ffuf_quick_file(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    ffuf -c -v -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv -maxtime 360
 }
 
-ffuf_recursive()
 # takes a param of a url and a wordlist
-{
-  dom=$(echo $1 | unfurl format %s%d)
-  ffuf -c -v -u $1/FUZZ -w $2 -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-    -H "X-Forwarded-For: 127.0.0.1" -recursion -recursion-depth 5 -mc all -ac \
-    -o ffuf_recursive_$dom.csv -of csv
-  }
+ffuf_recursive(){
+  dom=$(echo $1 | unfurl format %s-%d)
+  ffuf -u $1/FUZZ -w $2 -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
+}
 
-ffuf_custom_paths()
-# takes a param of a url and a directory wordlist
-{
-  dom=$(echo $1 | unfurl format %s%d)
-  ffuf -c -v -u $1/DIR/FUZZ -w $2:DIR -w $FILES_LARGE:FUZZ -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-    -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
-    -o ffuf_custom_paths_$dom.csv -of csv
-  }
-
-ffuf_file_ext()
-# takes a param of a url and a directory wordlist
-{
-  dom=$(echo $1 | unfurl format %s%d)
-  ffuf -c -v -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-    -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
-    -o ffuf_custom_paths_$dom.csv -of csv
-  }
-
-ffuf_custom_paths_files_ext()
-# takes a param of a url and a directory wordlist
-{
-  dom=$(echo $1 | unfurl format %s%d)
-  ffuf -c -v -u $1/DIR/FUZZEXT -w $2:DIR -w $WORDS_SMALL:FUZZ -w $EXT_SMALL:EXT -H "User-Agent: Mozilla Firefox Mozilla/5.0" \
-    -H "X-Forwarded-For: 127.0.0.1" -mc all -ac \
-    -o ffuf_custom_paths_file_ext_$dom.csv -of csv
-  }
+# takes a param of a url
+ffuf_file_ext(){
+  dom=$(echo $1 | unfurl format %s-%d)
+  ffuf -u $1/FUZZEXT -w $EXT_LARGE:EXT -w $WORDS_LARGE:FUZZ -o ffuf_custom_paths_$dom.csv
+}
 
 ffuf_vhost(){
-	dom=$(echo $1 | unfurl format %s%d)
+    dom=$(echo $1 | unfurl format %s%d)
     domain=$(echo $1 | unfurl format %d)
     rootdom=$(echo $1 | unfurl format %r)
     # creates a local wordlist with domain and root domain subs
-    cat $VHOST_SMALL | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
-	ffuf -c -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt \
-	-H "X-Forwarded-For: 127.0.0.1" -H "User-Agent: Mozilla Firefox Mozilla/5.0" -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv \
-	-of csv
+    cat $VHOST_LARGE | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
+    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv
 }
 
 ffufprev(){
-    find -name "ffuf*.csv" -exec cat {} \; | grep ,200, | sed 's/,/ /g' | grep -v '#' | sort -u | column -t -s' '  |vim -
+    find -name "ffuf*.csv" -exec cat {} \; | sed 's/,/ /g' | grep -v '#' | sort -u | column -t -s' '  |vim -
 }
 
 # nuclei (thanks rez0)
@@ -224,7 +189,7 @@ alias la='ls -A'
 alias l='ls -CF'                                                                                                                                         
 alias ls='ls --color -lax'
 alias ungron="gron --ungron"
-alias ipez="ip -c -br a"
+alias ip="ip -c -br a"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
