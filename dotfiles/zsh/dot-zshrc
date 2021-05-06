@@ -42,7 +42,7 @@ nmapprev(){
 }
 
 nsearch(){
-    ls -l /usr/share/nmap/scripts/* | grep -i '$1' | awk -F 'scripts/' '{ print $2 }'
+    ls -l /usr/share/nmap/scripts/* | grep -i $1 | awk -F 'scripts/' '{ print $2 }'
 }
 
 # ffuf (thank you rez0)
