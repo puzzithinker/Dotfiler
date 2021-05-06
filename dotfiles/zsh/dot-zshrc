@@ -48,12 +48,12 @@ nsearch(){
 # ffuf (thank you rez0)
 ffuf_quick_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
-    ffuf -c -v -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv -maxtime 360
+    ffuf -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv -maxtime 360
 }
 
 ffuf_quick_file(){
     dom=$(echo $1 | unfurl format %s-%d)
-    ffuf -c -v -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv -maxtime 360
+    ffuf -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv -maxtime 360
 }
 
 # takes a param of a url and a wordlist
@@ -117,7 +117,7 @@ linkfinder_paths(){
 
 # secretfinder <URL>
 secretfinder_url(){
-    python3 SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
+    python3 ~/tools/secretfinder/SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
 }
 
 # convert .bin to shellcode (thanks pry0cc)
