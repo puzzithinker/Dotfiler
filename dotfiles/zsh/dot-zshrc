@@ -48,24 +48,28 @@ nsearch(){
 # ffuf (thank you rez0)
 ffuf_quick_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
+    echo 'ffuf -u '$1'/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_'$dom'.csv -maxtime 360'
     ffuf -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv -maxtime 360
 }
 
 ffuf_quick_file(){
     dom=$(echo $1 | unfurl format %s-%d)
+    echo 'ffuf -u '$1'/FUZZ -w $FILES_LARGE -o ffuf_quick_files_'$dom'.csv -maxtime 360'
     ffuf -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv -maxtime 360
 }
 
 # takes a param of a url and a wordlist
 ffuf_recursive(){
   dom=$(echo $1 | unfurl format %s-%d)
+  echo 'ffuf -u '$1'/FUZZ -w '$2' -recursion -recursion-depth 5 -o ffuf_recursive_'$dom'.csv'
   ffuf -u $1/FUZZ -w $2 -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
 }
 
 # takes a param of a url
 ffuf_file_ext(){
   dom=$(echo $1 | unfurl format %s-%d)
-  ffuf -u $1/FUZZEXT -w $EXT_LARGE:EXT -w $WORDS_LARGE:FUZZ -o ffuf_custom_paths_$dom.csv
+  echo 'ffuf -u '$1'/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf_file_ext_'$dom'.csv'
+  ffuf -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf_file_ext_$dom.csv
 }
 
 ffuf_vhost(){
@@ -74,6 +78,7 @@ ffuf_vhost(){
     rootdom=$(echo $1 | unfurl format %r)
     # creates a local wordlist with domain and root domain subs
     cat $VHOSTS | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
+    echo 'ffuf -u '$1' -H "Host: FUZZ" -w ./vhosts_wordlist_'$dom'.txt -fc 400,404 -o ffuf_vhost_'$dom'.csv'
     ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -fc 400,404 -o ffuf_vhost_$dom.csv
 }
 
@@ -156,14 +161,14 @@ add_word_from_file(){
 
 # vars
 
-export DIRS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-directories.txt
-export DIRS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-directories.txt
-export FILES_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-files.txt
-export FILES_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-files.txt
-export WORDS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-words.txt
-export WORDS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-words.txt
-export EXT_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-extensions.txt
-export EXT_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-extensions.txt
+export DIRS_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-directories.txt
+export DIRS_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-directories.txt
+export FILES_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-files.txt
+export FILES_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-files.txt
+export WORDS_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-words.txt
+export WORDS_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-words.txt
+export EXT_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-extensions.txt
+export EXT_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-extensions.txt
 
 export MY_DIRS=~/wordlists/custom/w00k0-dirs.txt
 export MY_FILES=~/wordlists/custom/w00k0-files.txt

@@ -15,12 +15,6 @@ sudo apt install -y tmux jq golang parallel fonts-powerline
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
 
-# install docker
-curl -fsSL get.docker.com | sh
-# on kali
-sudo apt install -y docker.io
-sudo systemctl enable docker --now
-
 # restore dot files
 echo 'Restoring Dot Files'
 sudo apt install -y stow
@@ -88,9 +82,8 @@ mkdir -p $HOME/wordlists/{jhaddix,tomnomnom}
 wget -O $HOME/wordlists/tomnomnom/short-wordlist.txt https://gist.githubusercontent.com/tomnomnom/57af04c3422aac8c6f04451a4c1daa51/raw/9f551e023ff17d093dcb9f8b355c3af55827cb34/short-wordlist.txt
 wget -O $HOME/wordlists/jhaddix/content_discovery_all.txt https://gist.github.com/jhaddix/b80ea67d85c13206125806f0828f4d10/raw/c81a34fe84731430741e0463eb6076129c20c4c0/content_discovery_all.txt
 wget -O $HOME/wordlists/jhaddix/dns_all.txt https://gist.github.com/jhaddix/86a06c5dc309d08580a018c66354a056/raw/96f4e51d96b2203f19f6381c8c545b278eaa0837/all.txt
-# install aws cli
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && cd /tmp/ && unzip awscliv2.zip && sudo ./aws/install
-aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists --no-sign-request
+cd $HOME/wordlists/assetnote-wordlists && wget -r --no-parent -R "index.html*" https://wordlists-cdn.assetnote.io/data/ -nH
+
 # custom wordlists
 cp -r $cwd/config/wordlists $HOME/wordlists/custom
 # set up vimprev
