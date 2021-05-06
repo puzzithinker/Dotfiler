@@ -69,16 +69,16 @@ ffuf_file_ext(){
 }
 
 ffuf_vhost(){
-    dom=$(echo $1 | unfurl format %s%d)
+    dom=$(echo $1 | unfurl format %s-%d)
     domain=$(echo $1 | unfurl format %d)
     rootdom=$(echo $1 | unfurl format %r)
     # creates a local wordlist with domain and root domain subs
-    cat $VHOST_LARGE | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
-    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -ac -mc all -fc 400,404 -o ffuf_vhost_$dom.csv
+    cat $VHOSTS | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
+    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -fc 400,404 -o ffuf_vhost_$dom.csv
 }
 
 ffufprev(){
-    find -name "ffuf*.csv" -exec cat {} \; | sed 's/,/ /g' | grep -v '#' | sort -u | column -t -s' '  |vim -
+    find -name "ffuf*.csv" -exec cat {} \; | sed 's/,/ /g' | grep -v '#' | sort -u | column -t -s' '  | vim -
 }
 
 # nuclei (thanks rez0)
@@ -109,13 +109,14 @@ httprobemore(){
         -c 50 -t 1000
 }
 
-# linkfinder <URL/*.js> (thanks rez0)
+# linkfinder (thanks rez0)
 linkfinder_paths(){
+	echo 'format: URL/*.js'
 	python3 ~/tools/linkfinder/linkfinder.py -i $1 -o cli \
 	| grep -v http | grep -v // | sed 's/^\.\//\//' | sed 's/^\///'
 }
 
-# secretfinder <URL>
+# secretfinder
 secretfinder_url(){
     python3 ~/tools/secretfinder/SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
 }
@@ -144,44 +145,30 @@ cidr2ip(){
 	nmap -sL $1 | awk '/Nmap scan report/{print $NF}'
 }
 
-# wordlists
-add_to_dir_wls(){
-	echo $1 | anew ~/wordlists/custom/directories.txt
-	echo $1 | anew ~/wordlists/custom/all.txt
+# wordlists (thanks Rez0)
+add_word(){
+	echo $1 | anew ~/wordlists/custom/new-word-tokens.txt
 }
 
-add_to_file_wls(){
-	echo $1 | anew ~/wordlists/custom/files.txt
-	echo $1 | anew ~/wordlists/custom/all.txt
-}
-
-add_to_dir_wls_from_file(){
+add_word_from_file(){
 	while read line;do add_to_dir_wls $line;done < $1
-}
-
-add_to_file_wls_from_file(){
-	while read line;do add_to_file_wls $line;done < $1
 }
 
 # vars
 
 export DIRS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-directories.txt
 export DIRS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-directories.txt
-
 export FILES_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-files.txt
 export FILES_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-files.txt
-
 export WORDS_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-words.txt
 export WORDS_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-words.txt
-
 export EXT_LARGE=~/wordlists/assetnote-wordlists/manual/raft-large-extensions.txt
 export EXT_SMALL=~/wordlists/assetnote-wordlists/manual/raft-small-extensions.txt
 
-export CUST_DIRS=~/wordlists/custom/directories.txt
-export CUST_FILES=~/wordlists/custom/files.txt
+export MY_DIRS=~/wordlists/custom/w00k0-dirs.txt
+export MY_FILES=~/wordlists/custom/w00k0-files.txt
 
-export VHOST_LARGE=~/wordlists/custom/xl-vhosts.txt
-export VHOST_SMALL=~/wordlists/custom/vhosts.txt
+export VHOSTS=~/wordlists/custom/vhosts.txt
 
 # Aliases
 alias ll='ls -l'                                                                                                                                         
@@ -189,7 +176,6 @@ alias la='ls -A'
 alias l='ls -CF'                                                                                                                                         
 alias ls='ls --color -lax'
 alias ungron="gron --ungron"
-alias ip="ip -c -br a"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
