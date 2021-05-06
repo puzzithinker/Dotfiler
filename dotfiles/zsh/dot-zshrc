@@ -48,14 +48,14 @@ nsearch(){
 # ffuf (thank you rez0)
 ffuf_quick_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_'$dom'.csv -maxtime 360'
-    ffuf -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv -maxtime 360
+    echo 'ffuf -u '$1'/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv
 }
 
 ffuf_quick_file(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $FILES_LARGE -o ffuf_quick_files_'$dom'.csv -maxtime 360'
-    ffuf -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv -maxtime 360
+    echo 'ffuf -u '$1'/FUZZ -w $FILES_LARGE -o ffuf_quick_files_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv
 }
 
 # takes a param of a url and a wordlist
@@ -83,7 +83,7 @@ ffuf_vhost(){
 }
 
 ffufprev(){
-    find -name "ffuf*.csv" -exec cat {} \; | sed 's/,/ /g' | grep -v '#' | sort -u | column -t -s' '  | vim -
+    find -name "ffuf*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | sed 's/,/ /g' | sort -k 5,5 -u -n | column -t -s' '  | vim -
 }
 
 # nuclei (thanks rez0)
