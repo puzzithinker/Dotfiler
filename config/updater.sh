@@ -8,4 +8,3 @@ apt-get autoremove -y
 python3 -m pip install --user -U pipx
 go get -u all
 pipx upgrade-all
-aws s3 sync s3://assetnote-wordlists/data/ $HOME/wordlists/assetnote-wordlists --no-sign-request

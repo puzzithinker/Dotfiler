@@ -37,6 +37,12 @@ nmap_su(){
     sudo nmap -sU -T4 -Pn -p- -oA ./nmap-su-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
 }
 
+# takes in host, target ports, and script regex
+nmap_trgt_scrpt(){
+    echo 'nmap_trgt_scrpt IP PORT REGEX'
+    sudo nmap -sSCV -O -Pn -p $2  -oA ./nmap-scrpt-$1-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script=$3 $1
+}
+
 nmapprev(){
     find -type f -name 'nmap-*.gnmap' -exec cat {} \; | grep 'Host' | sort -u | grep -vi 'up' | vi - 
 }
@@ -68,8 +74,8 @@ ffuf_recursive(){
 # takes a param of a url
 ffuf_file_ext(){
   dom=$(echo $1 | unfurl format %s-%d)
-  echo 'ffuf -u '$1'/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf_file_ext_'$dom'.csv'
-  ffuf -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf_file_ext_$dom.csv
+  echo 'ffuf -u '$1'/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_'$dom'.csv'
+  ffuf -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_$dom.csv
 }
 
 ffuf_vhost(){
@@ -83,7 +89,7 @@ ffuf_vhost(){
 }
 
 ffufprev(){
-    find -name "ffuf*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | sed 's/,/ /g' | sort -k 5,5 -u -n | column -t -s' '  | vim -
+    find -name "ffuf_*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | sed 's/,/ /g' | sort -k 5,5 -u -n | column -t -s' '  | vim -
 }
 
 # nuclei (thanks rez0)

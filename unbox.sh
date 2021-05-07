@@ -92,9 +92,10 @@ sudo cp $cwd/config/vimprev /bin/vimprev && sudo chmod +x /bin/vimprev
 sudo cp $cwd/config/bypass403 /bin/bypass403 && sudo chmod +x /bin/bypass403
 # copy over gf patterns
 cp -r $GOPATH/src/github.com/tomnomnom/gf/examples/* ~/.gf
-
+gf -save filter-webcontent -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.ttf'
 
 # end
 echo 'Finished set up. Updating Machine...'
+# please read content of script before running
 bash $cwd/config/updater.sh
 echo 'Completed!'
