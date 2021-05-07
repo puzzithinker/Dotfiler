@@ -121,15 +121,14 @@ httprobemore(){
 }
 
 # linkfinder (thanks rez0)
-linkfinder_paths(){
-	echo 'format: URL/*.js'
-	python3 ~/tools/linkfinder/linkfinder.py -i $1 -o cli \
+linkfinder_url(){
+	python3 ~/tools/linkfinder/linkfinder.py -i $1 -d -o cli \
 	| grep -v http | grep -v // | sed 's/^\.\//\//' | sed 's/^\///'
 }
 
 # secretfinder
 secretfinder_url(){
-    python3 ~/tools/secretfinder/SecretFinder.py -i $1 -e -g 'jquery;bootstrap;api.google.com' -o cli
+    python3 ~/tools/secretfinder/SecretFinder.py -i $1 -e -g 'bootstrap;api.google.com' -o cli
 }
 
 # convert .bin to shellcode (thanks pry0cc)
