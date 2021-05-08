@@ -54,21 +54,20 @@ nsearch(){
 # ffuf (thank you rez0)
 ffuf_quick_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_'$dom'.csv'
-    ffuf -u $1/FUZZ -w $DIRS_LARGE -o ffuf_quick_dirs_$dom.csv
+    echo 'ffuf -u '$1'FUZZ -w $DIRS_PATHS -o ffuf_quick_dirs_'$dom'.csv'
+    ffuf -u $1FUZZ -w $DIRS_PATHS -o ffuf_quick_dirs_$dom.csv
 }
 
 ffuf_quick_file(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $FILES_LARGE -o ffuf_quick_files_'$dom'.csv'
-    ffuf -u $1/FUZZ -w $FILES_LARGE -o ffuf_quick_files_$dom.csv
+    echo 'ffuf -u '$1'/FUZZ -w $FILE_EXT -o ffuf_quick_files_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $FILE_EXT -o ffuf_quick_files_$dom.csv
 }
 
-# takes a param of a url and a wordlist
 ffuf_recursive(){
   dom=$(echo $1 | unfurl format %s-%d)
-  echo 'ffuf -u '$1'/FUZZ -w '$2' -recursion -recursion-depth 5 -o ffuf_recursive_'$dom'.csv'
-  ffuf -u $1/FUZZ -w $2 -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
+  echo 'ffuf -u '$1'/FUZZ -w $DIRS_RECURSE -recursion -recursion-depth 5 -o ffuf_recursive_'$dom'.csv'
+  ffuf -u $1/FUZZ -w $DIRS_RECURSE -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
 }
 
 # takes a param of a url
@@ -175,8 +174,9 @@ export WORDS_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-words.
 export EXT_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-extensions.txt
 export EXT_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-extensions.txt
 
-export MY_DIRS=~/wordlists/custom/w00k0-dirs.txt
-export MY_FILES=~/wordlists/custom/w00k0-files.txt
+export DIRS_RECURSE=~/wordlists/custom/dir-recursive-tokens-wordlist.txt
+export DIRS_PATHS=~/wordlists/custom/dir-full-paths-wordlist.txt
+export FILE_EXT=~/wordlists/custom/file-w-ext-wordlist.txt
 
 export VHOSTS=~/wordlists/custom/vhosts.txt
 
