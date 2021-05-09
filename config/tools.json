@@ -102,9 +102,7 @@
             "name":"LinEnum",
             "url":"github.com/rebootuser/LinEnum",
             "directory":"$HOME/tools/LinEnum"
-        },
-
-
+        }
     ],
 
     "wordlists":[
