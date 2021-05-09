@@ -14,8 +14,6 @@ Dotfiler
 
 Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.com/pry0cc).
 
-## Tools
-
 ### Packages
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Oh My Tmux](https://github.com/gpakosz/.tmux)
@@ -59,7 +57,6 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [Unfurl](https://github.com/tomnomnom/unfurl)
 - [Hakrawler](https://github.com/hakluke/hakrawler)
 - [Subgen](https://github.com/pry0cc/subgen)
-- [Dalfox](https://github.com/hahwul/dalfox)
 - [Gowitness](https://github.com/sensepost/gowitness)
 - [Httpx](https://github.com/projectdiscovery/httpx)
 - [Naabu](https://github.com/projectdiscovery/naabu)

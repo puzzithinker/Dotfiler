@@ -192,11 +192,6 @@
             "v11":"false"
         },
         {  
-            "name":"dalfox",
-            "url":"github.com/hahwul/dalfox",
-            "v11":"false"
-        },
-        {  
             "name":"gowitness",
             "url":"github.com/sensepost/gowitness",
             "v11":"false"
