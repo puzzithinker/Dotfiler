@@ -20,21 +20,18 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Oh My Tmux](https://github.com/gpakosz/.tmux)
 - [Pipx](https://github.com/pipxproject/pipx)
-- [AWS CLI](https://aws.amazon.com/cli/)
 - [Stow](https://www.gnu.org/software/stow/)
 - [Golang](https://golang.org/)
-
-### Repositories
-- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
-- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
-- [Nishang](https://github.com/samratashok/nishang)
-
-### Vim
 - [nerdtree](https://github.com/preservim/nerdtree)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-airline](https://github.com/vim-airline/vim-airline)
 - [vim-go](https://github.com/fatih/vim-go)
 - [vimprev](https://github.com/tomnomnom)
+
+### Repositories
+- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
+- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
+- [Nishang](https://github.com/samratashok/nishang)
 
 ### Wordlists
 - [Jhaddix's](https://gist.github.com/jhaddix/f64c97d0863a78454e44c2f7119c2a6a)
@@ -72,3 +69,16 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [Subfinder](https://github.com/projectdiscovery/subfinder)
 - [Nuclei](https://github.com/projectdiscovery/nuclei)
 - [Watson](https://github.com/rasta-mouse/watson)
+- [KiteRunner](https://github.com/assetnote/kiterunner)
+- [Arjun](https://github.com/s0md3v/Arjun)
+- [PEASS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite)
+- [SharpUp](https://github.com/GhostPack/SharpUp)
+- [SeatBelt](https://github.com/GhostPack/Seatbelt)
+- [JAWS](https://github.com/411Hall/JAWS)
+- [LinuxSmartEnum](https://github.com/diego-treitos/linux-smart-enumeration)
+- [RoguePotato](https://github.com/antonioCoco/RoguePotato)
+- [JWTtool](https://github.com/ticarpi/jwt_tool)
+- [Pspy](https://github.com/DominicBreuker/pspy)
+- [LinuxExploitSuggester](https://github.com/mzet-/linux-exploit-suggester)
+- [WindowsExploitSuggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)
+- [LinEnum](https://github.com/rebootuser/LinEnum)

@@ -52,15 +52,15 @@ nsearch(){
 }
 
 # ffuf (thank you rez0)
-ffuf_quick_dir(){
+ffuf_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'FUZZ -w $DIRS_PATHS -o ffuf_quick_dirs_'$dom'.csv'
+    echo 'ffuf -u '$1'FUZZ -w $DIRS_PATHS -o ffuf_dirs_'$dom'.csv'
     ffuf -u $1FUZZ -w $DIRS_PATHS -o ffuf_quick_dirs_$dom.csv
 }
 
-ffuf_quick_file(){
+ffuf_file(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $FILE_EXT -o ffuf_quick_files_'$dom'.csv'
+    echo 'ffuf -u '$1'/FUZZ -w $FILE_EXT -o ffuf_files_'$dom'.csv'
     ffuf -u $1/FUZZ -w $FILE_EXT -o ffuf_quick_files_$dom.csv
 }
 
@@ -89,6 +89,25 @@ ffuf_vhost(){
 
 ffufprev(){
     find -name "ffuf_*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | sed 's/,/ /g' | sort -k 5,5 -u -n | column -t -s' '  | vim -
+}
+
+# kiterunner
+kr_api(){
+    echo 'URL or file input'
+    echo 'kr scan $1 -w ~/wordlists/assetnote-wordlists/data/kiterunner/routes-large.kite -A=apiroutes-210428:20000 -A apiroutes-201120:20000 -A apiroutes-210228:10000 -x 10 --ignore-length=34'
+    kr scan $1 -w ~/wordlists/assetnote-wordlists/data/kiterunner/routes-large.kite -A=apiroutes-210428:20000 -A apiroutes-201120:20000 -A apiroutes-210228:10000 -x 10 --ignore-length=34
+}
+kr_dir(){
+    echo 'URL or file input'
+    echo 'kr brute '$1' -A raft-medium-directories.txt -A apiroutes-210428:30000 -A directories-210428:30000 -x 10 -j 100 -d=0 --ignore-length=34'
+    kr brute $1 -A raft-medium-directories.txt -A apiroutes-210428:30000 -A directories-210428:30000 -x 10 -j 100 -d=0 --ignore-length=34
+}
+# takes string param for extensions to test
+kr_file(){
+    echo 'kr_file TARGET EXT,EXT'
+    echo 'URL or file input'
+    echo 'kr brute '$1' -A raft-large-words.txt -A raft-large-words-lowercase:20000 -x 10 -j 100 -d=0 -e'$2' --ignore-length=34'
+    kr brute $1 -A raft-large-words.txt -A raft-large-words-lowercase:20000 -x 10 -j 100 -d=0 -e$2 --ignore-length=34 
 }
 
 # nuclei (thanks rez0)
@@ -128,6 +147,18 @@ linkfinder_url(){
 # secretfinder
 secretfinder_url(){
     python3 ~/tools/secretfinder/SecretFinder.py -i $1 -e -g 'bootstrap;api.google.com' -o cli
+}
+
+# arjun
+
+arjun_passive(){
+    echo 'only works on domains not subdomains'
+    arjun -u $1 --passive - -oB 127.0.0.1:8080 -c 250
+}
+
+arjun_paths(){
+    echo 'arjun_paths URL_PATHS_FILE <GET/POST/JSON/XML>'
+    arjun -i $1 -m $2 -oB 127.0.0.1:8080 -c 250
 }
 
 # convert .bin to shellcode (thanks pry0cc)

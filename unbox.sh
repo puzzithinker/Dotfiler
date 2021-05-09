@@ -65,6 +65,7 @@ sudo git clone https://github.com/codingo/Interlace.git /opt/interlace && cd /op
 git clone https://github.com/blechschmidt/massdns.git /tmp/massdns && cd /tmp/massdns && make && sudo mv bin/massdns /usr/bin/massdns
 wget -O /tmp/aquatone.zip https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip && cd /tmp/ && sudo unzip /tmp/aquatone.zip && sudo mv /tmp/aquatone $HOME/go/bin/aquatone
 wget -O /tmp/amass.zip https://github.com/OWASP/Amass/releases/download/v3.11.1/amass_linux_amd64.zip && cd /tmp/ && sudo unzip /tmp/amass.zip && sudo mv /tmp/amass_linux_amd64/amass $HOME/go/bin/amass
+wget -O /tmp/kiterunner.tar.gz https://github.com/assetnote/kiterunner/releases/download/v1.0.2/kiterunner_1.0.2_linux_amd64.tar.gz && cd /tmp/ && sudo tar -xf kiterunner.tar.gz && sudo mv ./kr /bin/kr
 
 # install Wordlists
 echo 'Installing Wordlists'
@@ -83,13 +84,14 @@ wget -O $HOME/wordlists/tomnomnom/short-wordlist.txt https://gist.githubusercont
 wget -O $HOME/wordlists/jhaddix/content_discovery_all.txt https://gist.github.com/jhaddix/b80ea67d85c13206125806f0828f4d10/raw/c81a34fe84731430741e0463eb6076129c20c4c0/content_discovery_all.txt
 wget -O $HOME/wordlists/jhaddix/dns_all.txt https://gist.github.com/jhaddix/86a06c5dc309d08580a018c66354a056/raw/96f4e51d96b2203f19f6381c8c545b278eaa0837/all.txt
 cd $HOME/wordlists/assetnote-wordlists && wget -r --no-parent -R "index.html*" https://wordlists-cdn.assetnote.io/data/ -nH
+cd ./data/kiterunner && sudo tar -xf {routes-large,routes-small.kite}.tar.gz
 
 # custom wordlists
 cp -r $cwd/config/wordlists $HOME/wordlists/custom
 # set up vimprev
 sudo cp $cwd/config/vimprev /bin/vimprev && sudo chmod +x /bin/vimprev
 # set up vimprev
-sudo cp $cwd/config/bypass403 /bin/bypass403 && sudo chmod +x /bin/bypass403
+sudo cp $cwd/config/bypass4031 /bin/bypass4031 && sudo chmod +x /bin/bypass4031
 # copy over gf patterns
 cp -r $GOPATH/src/github.com/tomnomnom/gf/examples/* ~/.gf
 gf -save filter-webcontent -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.ttf'
@@ -98,4 +100,6 @@ gf -save filter-webcontent -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.tt
 echo 'Finished set up. Updating Machine...'
 # please read content of script before running
 bash $cwd/config/updater.sh
+# install arjun
+pipx install arjun
 echo 'Completed!'

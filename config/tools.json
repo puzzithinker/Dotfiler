@@ -44,7 +44,67 @@
           "name":"secretfinder",
           "url":"github.com/m4ll0k/SecretFinder",
           "directory":"$HOME/tools/secretfinder"
-        }
+        },
+        {
+            "name":"privilege-escalation-awesome-scripts-suite",
+            "url":"github.com/carlospolop/privilege-escalation-awesome-scripts-suite",
+            "directory":"$HOME/tools/PEASS-PrivEsc"
+        },
+        {
+            "name":"privilege-escalation-awesome-scripts-suite",
+            "url":"github.com/carlospolop/privilege-escalation-awesome-scripts-suite",
+            "directory":"$HOME/tools/PEASS-PrivEsc"
+        },
+        {
+            "name":"SharpUp",
+            "url":"github.com/GhostPack/SharpUp",
+            "directory":"$HOME/payloads/SharpUp"
+        },
+        {
+            "name":"SeatBelt",
+            "url":"github.com/GhostPack/Seatbelt",
+            "directory":"$HOME/tools/Seatbelt"
+        },        {
+            "name":"JAWS",
+            "url":"github.com/411Hall/JAWS",
+            "directory":"$HOME/tools/JAWS"
+        },        {
+            "name":"windows-exploit-suggester",
+            "url":"github.com/AonCyberLabs/Windows-Exploit-Suggester",
+            "directory":"$HOME/tools/Windows-Exploit-Suggester"
+        },        
+        {
+            "name":"linux-smart-enumeration",
+            "url":"github.com/diego-treitos/linux-smart-enumeration",
+            "directory":"$HOME/tools/linux-smart-enumeration"
+        },
+        {
+            "name":"RoguePotato",
+            "url":"github.com/antonioCoco/RoguePotato",
+            "directory":"$HOME/payloads/roguepotato"
+        },
+        {
+            "name":"jwt-tool",
+            "url":"github.com/ticarpi/jwt_tool",
+            "directory":"$HOME/tools/jwt-tool"
+        },
+        {
+            "name":"pspy",
+            "url":"github.com/DominicBreuker/pspy",
+            "directory":"$HOME/tools/pspy"
+        },
+        {
+            "name":"linux-exploit-suggester",
+            "url":"github.com/mzet-/linux-exploit-suggester",
+            "directory":"$HOME/tools/linux-exploit-suggester"
+        },
+        {
+            "name":"LinEnum",
+            "url":"github.com/rebootuser/LinEnum",
+            "directory":"$HOME/tools/LinEnum"
+        },
+
+
     ],
 
     "wordlists":[
@@ -174,6 +234,26 @@
         {
             "name":"nuclei",
             "url":"github.com/projectdiscovery/nuclei/v2/cmd/nuclei",
+            "v11":"true"
+        },
+        {
+            "name":"interactsh",
+            "url":"github.com/projectdiscovery/interactsh/cmd/interactsh-client",
+            "v11":"true"
+        },
+        {
+            "name":"pencode",
+            "url":"github.com/ffuf/pencode/cmd/pencode",
+            "v11":"false"
+        },
+        {
+            "name":"chisel",
+            "url":"github.com/jpillora/chisel",
+            "v11":"false"
+        },
+        {
+            "name":"cook",
+            "url":"github.com/giteshnxtlvl/cook",
             "v11":"true"
         }
     ]
