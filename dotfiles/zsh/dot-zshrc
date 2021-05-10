@@ -57,6 +57,7 @@ ffuf_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
     echo 'ffuf -u '$1'/FUZZ -w $DIRS_PATHS -o ffuf_dirs_'$dom'.csv'
     ffuf -u $1/FUZZ -w $DIRS_PATHS -o ffuf_dirs_$dom.csv
+}
 
 ffuf_file(){
     dom=$(echo $1 | unfurl format %s-%d)
