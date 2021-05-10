@@ -40,6 +40,7 @@ nmap_su(){
 # takes in host, target ports, and script regex
 nmap_trgt_scrpt(){
     echo 'nmap_trgt_scrpt IP PORT REGEX'
+    echo 'sudo nmap -sSCV -O -Pn -p '$2'  -oA ./nmap-scrpt-'$1'-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script='$3' '$1''
     sudo nmap -sSCV -O -Pn -p $2  -oA ./nmap-scrpt-$1-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script=$3 $1
 }
 
@@ -54,14 +55,13 @@ nsearch(){
 # ffuf (thank you rez0)
 ffuf_dir(){
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'FUZZ -w $DIRS_PATHS -o ffuf_dirs_'$dom'.csv'
-    ffuf -u $1FUZZ -w $DIRS_PATHS -o ffuf_quick_dirs_$dom.csv
-}
+    echo 'ffuf -u '$1'/FUZZ -w $DIRS_PATHS -o ffuf_dirs_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $DIRS_PATHS -o ffuf_dirs_$dom.csv
 
 ffuf_file(){
     dom=$(echo $1 | unfurl format %s-%d)
     echo 'ffuf -u '$1'/FUZZ -w $FILE_EXT -o ffuf_files_'$dom'.csv'
-    ffuf -u $1/FUZZ -w $FILE_EXT -o ffuf_quick_files_$dom.csv
+    ffuf -u $1/FUZZ -w $FILE_EXT -o ffuf_files_$dom.csv
 }
 
 ffuf_recursive(){
@@ -71,6 +71,7 @@ ffuf_recursive(){
 }
 
 # takes a param of a url
+# results are excluded from ffufprev
 ffuf_file_ext(){
   dom=$(echo $1 | unfurl format %s-%d)
   echo 'ffuf -u '$1'/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_'$dom'.csv'
@@ -83,8 +84,8 @@ ffuf_vhost(){
     rootdom=$(echo $1 | unfurl format %r)
     # creates a local wordlist with domain and root domain subs
     cat $VHOSTS | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
-    echo 'ffuf -u '$1' -H "Host: FUZZ" -w ./vhosts_wordlist_'$dom'.txt -fc 400,404 -o ffuf_vhost_'$dom'.csv'
-    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -fc 400,404 -o ffuf_vhost_$dom.csv
+    echo 'ffuf -u '$1' -H "Host: FUZZ" -w ./vhosts_wordlist_'$dom'.txt -fc 400,404 -o ffuf_vhost_'$dom'.csv -acc '$domain''
+    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -fc 400,404 -o ffuf_vhost_$dom.csv -acc $domain
 }
 
 ffufprev(){
@@ -217,6 +218,7 @@ alias la='ls -A'
 alias l='ls -CF'                                                                                                                                         
 alias ls='ls --color -lax'
 alias ungron="gron --ungron"
+alias ks='ls'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
