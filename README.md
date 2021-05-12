@@ -77,3 +77,7 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [LinuxExploitSuggester](https://github.com/mzet-/linux-exploit-suggester)
 - [WindowsExploitSuggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)
 - [LinEnum](https://github.com/rebootuser/LinEnum)
+- [Chisel](https://github.com/jpillora/chisel)
+- [InteractSh](https://github.com/projectdiscovery/interactsh/cmd/interactsh-client)
+- [PenCode](https://github.com/ffuf/pencode/cmd/pencode)
+- [Cook](https://github.com/giteshnxtlvl/cook)
