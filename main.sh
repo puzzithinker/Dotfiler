@@ -100,6 +100,7 @@ gf -save filter-webcontent -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.tt
 echo 'Finished set up. Updating Machine...'
 # please read content of script before running
 bash $cwd/config/updater.sh
-# install arjun
+# pipx install
 pipx install arjun
+pipx install crackmapexec
 echo 'Completed!'

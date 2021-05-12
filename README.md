@@ -24,7 +24,6 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-airline](https://github.com/vim-airline/vim-airline)
 - [vim-go](https://github.com/fatih/vim-go)
-- [vimprev](https://github.com/tomnomnom)
 
 ### Repositories
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
@@ -81,3 +80,5 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [InteractSh](https://github.com/projectdiscovery/interactsh/cmd/interactsh-client)
 - [PenCode](https://github.com/ffuf/pencode/cmd/pencode)
 - [Cook](https://github.com/giteshnxtlvl/cook)
+- [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec)
+- [vimprev](https://github.com/tomnomnom)
