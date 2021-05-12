@@ -51,24 +51,16 @@
             "directory":"$HOME/tools/PEASS-PrivEsc"
         },
         {
-            "name":"privilege-escalation-awesome-scripts-suite",
-            "url":"github.com/carlospolop/privilege-escalation-awesome-scripts-suite",
-            "directory":"$HOME/tools/PEASS-PrivEsc"
-        },
-        {
-            "name":"SharpUp",
-            "url":"github.com/GhostPack/SharpUp",
-            "directory":"$HOME/payloads/SharpUp"
-        },
-        {
             "name":"SeatBelt",
             "url":"github.com/GhostPack/Seatbelt",
             "directory":"$HOME/tools/Seatbelt"
-        },        {
+        },        
+        {
             "name":"JAWS",
             "url":"github.com/411Hall/JAWS",
             "directory":"$HOME/tools/JAWS"
-        },        {
+        },
+        {
             "name":"windows-exploit-suggester",
             "url":"github.com/AonCyberLabs/Windows-Exploit-Suggester",
             "directory":"$HOME/tools/Windows-Exploit-Suggester"
@@ -77,11 +69,6 @@
             "name":"linux-smart-enumeration",
             "url":"github.com/diego-treitos/linux-smart-enumeration",
             "directory":"$HOME/tools/linux-smart-enumeration"
-        },
-        {
-            "name":"RoguePotato",
-            "url":"github.com/antonioCoco/RoguePotato",
-            "directory":"$HOME/payloads/roguepotato"
         },
         {
             "name":"jwt-tool",
