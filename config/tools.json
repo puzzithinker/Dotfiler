@@ -8,32 +8,32 @@
         {
           "name":"payloadsallthethings",
           "url":"github.com/swisskyrepo/PayloadsAllTheThings",
-          "directory":"$HOME/payloads/payloadsAllTheThings"
+          "directory":"$HOME/tools/payloadsAllTheThings"
         },
         {
           "name":"powersploit",
           "url":"github.com/PowerShellMafia/PowerSploit",
-          "directory":"$HOME/payloads/powersploit"
+          "directory":"$HOME/tools/powersploit"
         },
         {
           "name":"nishang",
           "url":"github.com/samratashok/nishang",
-          "directory":"$HOME/payloads/nishang"
+          "directory":"$HOME/tools/nishang"
         },
         {
           "name":"watson",
           "url":"github.com/rasta-mouse/watson",
-          "directory":"$HOME/payloads/watson"
+          "directory":"$HOME/tools/watson"
         },
         {
           "name":"impacket",
           "url":"github.com/SecureAuthCorp/impacket",
-          "directory":"$HOME/payloads/impacket"
+          "directory":"$HOME/tools/impacket"
         },
         {
           "name":"evil-winrm",
           "url":"github.com/Hackplayers/evil-winrm",
-          "directory":"$HOME/payloads/evil-winrm"
+          "directory":"$HOME/tools/evil-winrm"
         },
         {
           "name":"linkfinder",
@@ -235,6 +235,11 @@
             "name":"cook",
             "url":"github.com/giteshnxtlvl/cook",
             "v11":"true"
+        },
+        {
+            "name":"kerbrute",
+            "url":"github.com/ropnop/kerbrute",
+            "v11":"false"
         }
     ]
 }

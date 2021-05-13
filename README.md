@@ -82,3 +82,5 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [Cook](https://github.com/giteshnxtlvl/cook)
 - [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec)
 - [vimprev](https://github.com/tomnomnom)
+- [Kerbrute](https://github.com/ropnop/kerbrute)
+- [BloodHound.py Ingestor](https://github.com/fox-it/BloodHound.py)

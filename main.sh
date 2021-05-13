@@ -103,4 +103,6 @@ bash $cwd/config/updater.sh
 # pipx install
 pipx install arjun
 pipx install crackmapexec
+pipx install impacket
+pipx install bloodhound
 echo 'Completed!'
