@@ -30,7 +30,7 @@ nmap_quick(){
 }
 
 nmap_ss(){
-    sudo nmap -sS -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+    sudo nmap -sS -sCV -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
 }
 
 nmap_su(){
