@@ -1,0 +1,173 @@
+# alias functions
+
+# nmap
+nmap_quick(){
+    sudo grc nmap -sS -sCV -T4 -Pn --top-ports 5000 -oA ./nmap-quick-$1-5000p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+}
+
+nmap_ss(){
+    sudo grc nmap -sS -sCV -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+}
+
+nmap_su(){
+    sudo grc nmap -sU -T4 -Pn -p- -oA ./nmap-su-$1-65535p-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m $1
+}
+
+# takes in host, target ports, and script regex
+nmap_trgt_scrpt(){
+    echo 'nmap_trgt_scrpt IP PORT REGEX'
+    echo 'sudo nmap -sSCV -O -Pn -p '$2'  -oA ./nmap-scrpt-'$1'-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script='$3' '$1''
+    sudo grc nmap -sSCV -O -Pn -p $2  -oA ./nmap-scrpt-$1-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script=$3 $1
+}
+
+nmapprev(){
+    find -type f -name 'nmap-*.gnmap' -exec cat {} \; | grep 'Host' | sort -u | grep -vi 'up' | vi - 
+}
+
+nsearch(){
+    ls -l /usr/share/nmap/scripts/* | grep -i $1 | awk -F 'scripts/' '{ print $2 }'
+}
+
+# ffuf
+ffuf_dir(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    echo 'ffuf -u '$1'/FUZZ -w $DIRS_PATHS -o ffuf_dirs_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $DIRS_PATHS -o ffuf_dirs_$dom.csv
+}
+
+ffuf_file(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    echo 'ffuf -u '$1'/FUZZ -w $FILE_EXT -o ffuf_files_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $FILE_EXT -o ffuf_files_$dom.csv
+}
+
+ffuf_recursive(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    echo 'ffuf -u '$1'/FUZZ -w $DIRS_RECURSE -recursion -recursion-depth 5 -o ffuf_recursive_'$dom'.csv'
+    ffuf -u $1/FUZZ -w $DIRS_RECURSE -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
+}
+
+# takes a param of a url
+# results are excluded from ffufprev
+ffuf_file_ext(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    echo 'ffuf -u '$1'/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_'$dom'.csv'
+    ffuf -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_$dom.csv
+}
+
+ffuf_vhost(){
+    dom=$(echo $1 | unfurl format %s-%d)
+    domain=$(echo $1 | unfurl format %d)
+    rootdom=$(echo $1 | unfurl format %r)
+
+    # creates a local wordlist with domain and root domain subs
+    cat $VHOSTS | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
+    echo 'ffuf -u '$1' -H "Host: FUZZ" -w ./vhosts_wordlist_'$dom'.txt -fc 400,404 -o ffuf_vhost_'$dom'.csv -acc '$domain''
+    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -fc 400,404 -o ffuf_vhost_$dom.csv -acc $domain
+}
+
+ffufprev(){
+    find -name "ffuf_*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | sed 's/,/ /g' | sort -k 5,5 -u -n | column -t -s' '  | vim -
+}
+
+# kiterunner
+kr_api(){
+    echo 'URL or file input'
+    echo 'kr scan $1 -w ~/wordlists/assetnote-wordlists/data/kiterunner/routes-large.kite -A=apiroutes-210428 -A apiroutes-201120 -A apiroutes-210228 -x 10 --ignore-length=34'
+    kr scan $1 -w ~/wordlists/assetnote-wordlists/data/kiterunner/routes-large.kite -A=apiroutes-210428 -A apiroutes-201120 -A apiroutes-210228 -x 10 --ignore-length=34
+}
+kr_dir(){
+    echo 'URL or file input'
+    echo 'kr brute '$1' -A raft-medium-directories.txt -A directories-210428 -x 10 -j 100 -d=0 --ignore-length=34'
+    kr brute $1 -A raft-medium-directories.txt -A directories-210428 -x 10 -j 100 -d=0 --ignore-length=34
+}
+# takes string param for extensions to test
+kr_file(){
+    echo 'kr_file TARGET EXT,EXT'
+    echo 'URL or file input'
+    echo 'kr brute '$1' -A raft-large-words.txt -A raft-large-words-lowercase -x 10 -j 100 -d=0 -e'$2' --ignore-length=34'
+    kr brute $1 -A raft-large-words.txt -A raft-large-words-lowercase -x 10 -j 100 -d=0 -e$2 --ignore-length=34 
+}
+
+# nuclei
+nuclei_site(){
+    echo $1 | nuclei -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
+    -t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
+	-t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 30
+}
+nuclei_file(){
+    nuclei -l $1 -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
+	-t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
+	-t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 50
+}
+
+# http verb tampering (rez0)
+tamper_verbs() {
+    echo -n "$1: "; for i in GET POST HEAD PUT DELETE CONNECT OPTIONS TRACE PATCH ASDF; \
+	do echo "echo -n \"$i-$(curl -k -s -X $i $1 -o /dev/null -w '%{http_code}') \""; done \
+	| parallel -j 10 ; echo
+}
+
+# httprobe wrapper
+httprobemore(){
+	httprobe -p http:8000 -p https:9443 -p http:8080 -p https:8443 \
+    -p http:81 -p http:591 -p http:2082 -p http:2087 -p http:2095 -p http:2096 -p http:3000 -p http:8001 -p http:8008 \
+    -p http:8080 -p http:8083 -p http:8834 -p http:8888 -p https:81 -p https:591 -p https:2082 -p https:2087 -p https:2095 \
+    -p https:2096 -p https:3000 -p https:8001 -p https:8008 -p https:8080 -p https:8083 -p https:8834 -p https:8888 \
+    -c 50 -t 1000
+}
+
+# linkfinder
+linkfinder_url(){
+	python3 ~/tools/linkfinder/linkfinder.py -i $1 -d -o cli \
+	| grep -v http | grep -v // | sed 's/^\.\//\//' | sed 's/^\///'
+}
+
+# secretfinder
+secretfinder_url(){
+    python3 ~/tools/secretfinder/SecretFinder.py -i $1 -e -g 'bootstrap;api.google.com' -o cli
+}
+
+# arjun
+arjun_passive(){
+    echo 'only works on domains not subdomains'
+    arjun -u $1 --passive - -oB 127.0.0.1:8080 -c 250
+}
+
+arjun_paths(){
+    echo 'arjun_paths URL_PATHS_FILE <GET/POST/JSON/XML>'
+    arjun -i $1 -m $2 -oB 127.0.0.1:8080 -c 250
+}
+
+# convert .bin to shellcode
+function bin2shellcode {
+    hexdump -v -e '"\\""x" 1/1 "%02x" ""' ${1}
+}
+
+# axiom
+makefleet(){
+    fleet=$1
+
+    total=0
+    while [[ "$total" -lt $2 ]];
+    do
+        axiom-fleet "$fleet" -i=10
+        total=$((total+10))
+        echo "Spun up $total"
+        sleep 60
+    done
+}
+
+# cidr2ip
+cidr2ip(){
+	nmap -sL $1 | awk '/Nmap scan report/{print $NF}'
+}
+
+# wordlists
+add_word(){
+	echo $1 | anew ~/wordlists/custom/new-word-tokens.txt
+}
+
+add_word_from_file(){
+	while read line;do add_to_dir_wls $line;done < $1
+}
