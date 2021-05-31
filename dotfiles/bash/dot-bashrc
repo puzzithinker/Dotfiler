@@ -44,7 +44,7 @@ export PATH=~/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/u
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.zsh
+source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.bash
 
 # Wordlists
 export DIRS_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-directories.txt
@@ -145,7 +145,7 @@ __prompt_command() {
     else 
         pointerC="${txtgrn}"
     fi
-    PS1+="┌──${nameC}\u${atC}@${hostC}\h:${pathC}\w${gitC}\$(gitPrompt)\n${normalC}└──${pointerC}╼${normalC} "
+    PS1+="${normalC}┌──${nameC}\u${atC}@${hostC}\h:${pathC}\w${gitC}\$(gitPrompt)\n${normalC}└──${pointerC}╼${txtrst} "
 }
 
 # Local settings go last
