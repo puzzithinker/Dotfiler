@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo 'URL PATH/ IPLIST(OPT)'
 # normal responses
 curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
 echo "  --> ${1}/${2}"
@@ -60,8 +60,6 @@ echo "  --> ${1}/${2}%2e%2e%2f"
 curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" "$1/$2.%2e/"
 echo "  --> ${1}/${2}.%2e/"
 
-
-
 # directory tests
 curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" "$1/..;/$2"
 echo "  --> ${1}/..;/${2}"
@@ -120,3 +118,5 @@ echo "  --> ${1}/${2} -H X-Remote-Addr: 127.0.0.1"
 curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-Rewrite-URL: /$2" $1
 echo "  --> ${1} -H X-Rewrite-URL: /${2}"
 
+# IP test
+# TODO: Input file and attempt with all x-headers and IP
