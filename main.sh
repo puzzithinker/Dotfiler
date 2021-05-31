@@ -10,7 +10,7 @@ cwd=$(echo $PWD)
 echo 'Preparing Base Packages'
 
 sudo apt-get update -qq
-sudo apt install -y tmux jq golang parallel grc
+sudo apt install -y tmux jq golang parallel grc python3-venv
 
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
@@ -78,12 +78,12 @@ do
 done
 
 # install manual wordlists
-mkdir -p $HOME/wordlists/{jhaddix,tomnomnom}
+mkdir -p $HOME/wordlists/{jhaddix,tomnomnom,assetnote}
 wget -O $HOME/wordlists/tomnomnom/short-wordlist.txt https://gist.githubusercontent.com/tomnomnom/57af04c3422aac8c6f04451a4c1daa51/raw/9f551e023ff17d093dcb9f8b355c3af55827cb34/short-wordlist.txt
 wget -O $HOME/wordlists/jhaddix/content_discovery_all.txt https://gist.github.com/jhaddix/b80ea67d85c13206125806f0828f4d10/raw/c81a34fe84731430741e0463eb6076129c20c4c0/content_discovery_all.txt
 wget -O $HOME/wordlists/jhaddix/dns_all.txt https://gist.github.com/jhaddix/86a06c5dc309d08580a018c66354a056/raw/96f4e51d96b2203f19f6381c8c545b278eaa0837/all.txt
-cd $HOME/wordlists/assetnote-wordlists && wget -r --no-parent -R "index.html*" https://wordlists-cdn.assetnote.io/data/ -nH
-cd ./data/kiterunner && sudo tar -xf {routes-large,routes-small.kite}.tar.gz
+cd $HOME/wordlists/assetnote && wget -r --no-parent -R "index.html*" https://wordlists-cdn.assetnote.io/data/ -nH
+cd ./data/kiterunner && sudo tar -xf routes-small.kite.tar.gz  && sudo tar -xf routes-large.kite.tar.gz
 
 # custom wordlists
 cp -r $cwd/config/wordlists $HOME/wordlists/custom

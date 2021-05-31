@@ -78,8 +78,8 @@ kr_api(){
 }
 kr_dir(){
     echo 'URL or file input'
-    echo 'kr brute '$1' -A raft-medium-directories.txt -A directories-210428 -x 10 -j 100 -d=0 --ignore-length=34'
-    kr brute $1 -A raft-medium-directories.txt -A directories-210428 -x 10 -j 100 -d=0 --ignore-length=34
+    echo 'kr brute '$1' -A raft-medium-directories.txt -A directories-210428 -w ~/wordlists/asset/note/data/kiterunner/swagger-wordlist.txt -x 10 -j 100 -d=0 --ignore-length=34'
+    kr brute $1 -A raft-medium-directories.txt -A directories-210428 -w ~/wordlists/asset/note/data/kiterunner/swagger-wordlist.txt -x 10 -j 100 -d=0 --ignore-length=34
 }
 # takes string param for extensions to test
 kr_file(){
