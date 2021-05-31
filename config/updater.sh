@@ -1,10 +1,7 @@
 #!/bin/sh
-now=$(date +"%m/%d/%Y @ %T")
-echo "Last Update : $now"
-apt update -y && apt full-upgrade -y
-apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y
-apt-get autoclean -y && apt-get clean -y
-apt-get autoremove -y
-python3 -m pip install --user -U pipx
+sudo apt update -y && sudo apt full-upgrade -y
+sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
+sudo apt-get autoclean -y && sudo apt-get clean -y
+sudo apt-get autoremove -y
 go get -u all
 pipx upgrade-all

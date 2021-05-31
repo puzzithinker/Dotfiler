@@ -12,10 +12,9 @@ Dotfiler
 ## Features
 **Dotfiler** is an automated installer that sets up several network and web application penetration testing tools setting up new environments quickly. Configuration dotfiles can be stored within the dotfiles folder to be automatically symbolic linked with `stow` for easy administration. Users who maintain their dotfiles in a VCS can quickly swap the folder contents for their own presets.
 
-Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.com/pry0cc).
+Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.com/pry0cc) and [tomnomnom](https://github.com/tomnomnom/dotfiles).
 
 ### Packages
-- [Oh My Zsh](https://ohmyz.sh/)
 - [Oh My Tmux](https://github.com/gpakosz/.tmux)
 - [Pipx](https://github.com/pipxproject/pipx)
 - [Stow](https://www.gnu.org/software/stow/)

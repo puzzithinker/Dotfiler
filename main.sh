@@ -15,6 +15,10 @@ sudo apt install -y tmux jq golang parallel grc
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
 
+# REMOVING DOTFILES
+rm ~/.bashrc
+rm ~/.vimrc
+
 # restore dot files
 echo 'Restoring Dot Files'
 sudo apt install -y stow

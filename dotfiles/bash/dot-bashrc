@@ -17,8 +17,8 @@ fi
 
 # Alias definitions
 alias ls='ls --color=auto -lax'
-alias ll='ls --color=auto -l'                                                                                                                                         
-alias la='ls --color=auto -A'                                                                                                                                        
+alias ll='ls --color=auto -l'
+alias la='ls --color=auto -A'
 alias l='ls --color=auto -CF' 
 alias grep='grep --color=auto'
 alias ungron="gron --ungron"
@@ -41,8 +41,8 @@ export EDITOR=/usr/bin/vim
 export PATH=~/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:$PATH$
 
 # Go
-export GOROOT=/usr/lib/go                                                                                                                                
-export GOPATH=$HOME/go                                                                                                                                   
+export GOROOT=/usr/lib/go
+export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.zsh
 
@@ -76,6 +76,11 @@ function cu {
         path="${path}../"
     done
     cd $path
+}
+
+# 'Safe' version of __git_ps1 to avoid errors on systems that don't have it
+function gitPrompt {
+  command -v __git_ps1 > /dev/null && __git_ps1 " (%s)"
 }
 
 # Colours
