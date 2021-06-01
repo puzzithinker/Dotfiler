@@ -89,6 +89,11 @@
             "name":"LinEnum",
             "url":"github.com/rebootuser/LinEnum",
             "directory":"$HOME/tools/LinEnum"
+        },
+        {
+            "name":"tennc webshell",
+            "url":"github.com/tennc/webshell",
+            "directory":"$HOME/tools/webshell"
         }
     ],
 
