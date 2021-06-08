@@ -1,2 +1,4 @@
 # Set silent mode
 silent
+# Dump headers to stdout
+--dump-header -
