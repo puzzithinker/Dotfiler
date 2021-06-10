@@ -7,5 +7,5 @@ proxy = 127.0.0.1:8080
 # set user agent
 -A "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.2.149.27 Safari/525.13"
 
-# -k (enable either when needed I pref insecure)
+# when needed
 # insecure
