@@ -119,11 +119,11 @@ bakwht='\[\e[47m\]'   # White
 txtrst='\[\e[0m\]'    # Text Reset
 
 # Prompt colours
-atC="${txtpur}"
-nameC="${txtblu}"
-hostC="${txtcyn}"
-pathC="${txtgrn}"
-gitC="${txtpur}"
+atC="${txtgrn}"
+nameC="${txtwht}"
+hostC="${txtwht}"
+pathC="${txtblu}"
+gitC="${txtcyn}"
 pointerC="${txtgrn}"
 normalC="${txtwht}"
 
@@ -140,12 +140,15 @@ __prompt_command() {
 
     if [ $EXIT -eq 127 ]; then
         pointerC="${txtpur}"
+        atC="${txtpur}"
     elif [ $EXIT -eq 1 ]; then
         pointerC="${txtred}"
+        atC="${txtred}"
     else 
         pointerC="${txtgrn}"
+        atC="${txtgrn}"
     fi
-    PS1+="${normalC}┌──${nameC}\u${atC}@${hostC}\h:${pathC}\w${gitC}\$(gitPrompt)\n${normalC}└──${pointerC}╼${txtrst} "
+    PS1+="${nameC}\u${atC}:${pathC}[\w]${gitC}\$(gitPrompt)${pointerC} » ${normalC}"
 }
 
 # Local settings go last
