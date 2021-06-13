@@ -110,7 +110,7 @@ undcyn='\[\e[4;36m\]' # Cyan
 undwht='\[\e[4;37m\]' # White
 bakblk='\[\e[40m\]'   # Black - Background
 bakred='\[\e[41m\]'   # Red
-badgrn='\[\e[42m\]'   # Green
+bakgrn='\[\e[42m\]'   # Green
 bakylw='\[\e[43m\]'   # Yellow
 bakblu='\[\e[44m\]'   # Blue
 bakpur='\[\e[45m\]'   # Purple
@@ -120,12 +120,13 @@ txtrst='\[\e[0m\]'    # Text Reset
 
 # Prompt colours
 atC="${txtgrn}"
-nameC="${txtwht}"
+nameC="${txtcyn}"
 hostC="${txtwht}"
 pathC="${txtblu}"
 gitC="${txtcyn}"
 pointerC="${txtgrn}"
 normalC="${txtwht}"
+borderC="${txtgrn}"
 
 # Red name for root
 if [ "${UID}" -eq "0" ]; then 
@@ -141,14 +142,17 @@ __prompt_command() {
     if [ $EXIT -eq 127 ]; then
         pointerC="${txtpur}"
         atC="${txtpur}"
+        borderC="${txtpur}"
     elif [ $EXIT -eq 1 ]; then
         pointerC="${txtred}"
         atC="${txtred}"
+        borderC="${txtred}"
     else 
         pointerC="${txtgrn}"
         atC="${txtgrn}"
+        borderC="${txtgrn}"
     fi
-    PS1+="${nameC}\u${atC}:${pathC}[\w]${gitC}\$(gitPrompt)${pointerC} » ${normalC}"
+    PS1+="${nameC}\u${atC}:${borderC}[${pathC}\w${borderC}]${gitC}\$(gitPrompt)${pointerC} » ${normalC}"
 }
 
 # Local settings go last
