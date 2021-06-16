@@ -1,6 +1,6 @@
 # Syntax highlighting and Z
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-z/zsh-z.plugin.zsh
+source ~/.zsh/zsh-z.plugin.zsh
 autoload -U compinit && compinit
 
 # Suggestions
