@@ -10,13 +10,14 @@ cwd=$(echo $PWD)
 echo 'Preparing Base Packages'
 
 sudo apt-get update -qq
-sudo apt install -y tmux jq golang parallel grc python3-venv exploitdb
+sudo apt install -y tmux jq golang parallel grc python3-venv exploitdb zsh-syntax-highlighting
 
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
 
 # REMOVING DOTFILES
 rm ~/.bashrc
+rm ~/.zshrc
 rm ~/.vimrc
 
 # restore dot files
@@ -28,7 +29,11 @@ cd $HOME/dotfiles/vim/ && tar -xf $HOME/dotfiles/vim/dot-vim.tar.gz; rm -f $HOME
 for dir in $HOME/dotfiles/*; do
   cd $HOME/dotfiles/ && stow --dotfiles $(echo $dir | awk '{gsub(/\/.*\//,"",$1); print}')
 done
-source ~/.bashrc
+
+# shell stuff
+source ~/.bashrc; source ~/.zshrc
+sudo chsh -s $(which zsh) $user
+touch $HOME/.z
 
 # install Go Tools
 echo 'Installing Go Tools'
@@ -65,6 +70,7 @@ git clone https://github.com/blechschmidt/massdns.git /tmp/massdns && cd /tmp/ma
 wget -O /tmp/aquatone.zip https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip && cd /tmp/ && sudo unzip /tmp/aquatone.zip && sudo mv /tmp/aquatone $HOME/go/bin/aquatone
 wget -O /tmp/amass.zip https://github.com/OWASP/Amass/releases/download/v3.11.1/amass_linux_amd64.zip && cd /tmp/ && sudo unzip /tmp/amass.zip && sudo mv /tmp/amass_linux_amd64/amass $HOME/go/bin/amass
 wget -O /tmp/kiterunner.tar.gz https://github.com/assetnote/kiterunner/releases/download/v1.0.2/kiterunner_1.0.2_linux_amd64.tar.gz && cd /tmp/ && sudo tar -xf kiterunner.tar.gz && sudo mv ./kr /bin/kr
+sudo mkdir /usr/share/zsh-z && wget -O /usr/share/zsh-z/zsh-z.plugin.zsh https://raw.githubusercontent.com/agkozak/zsh-z/master/zsh-z.plugin.zsh
 
 # install Wordlists
 echo 'Installing Wordlists'

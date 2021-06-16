@@ -1,19 +1,19 @@
+# Syntax highlighting and Z
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-z/zsh-z.plugin.zsh
+autoload -U compinit && compinit
+
+# Suggestions
+zstyle ':autocomplete:tab:*' insert-unambiguous yes
+zstyle ':completion:*' menu select
+zstyle ':autocomplete:*' min-input 2
+
 # History control
+HISTFILE=~/.zsh_history
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=100000
 HISTFILESIZE=2000000
-shopt -s histappend
-shopt -s cdspell
-bind TAB:menu-complete
-
-# Bash completion
-if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
-fi
+setopt appendhistory
 
 # Alias definitions
 alias ls='ls --color=auto -lax'
@@ -27,8 +27,8 @@ alias :q="exit"
 alias _='sudo'
 
 # functions file
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.sh_aliases ]; then
+    . ~/.sh_aliases
 fi
 
 # Color
@@ -44,7 +44,7 @@ export PATH=~/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/u
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.bash
+source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.zsh
 
 # Wordlists
 export DIRS_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-directories.txt
