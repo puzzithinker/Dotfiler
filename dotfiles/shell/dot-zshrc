@@ -77,24 +77,6 @@ export DIRS_PATHS=~/wordlists/custom/dir-full-paths-wordlist.txt
 export FILE_EXT=~/wordlists/custom/file-w-ext-wordlist.txt
 export VHOSTS=~/wordlists/custom/vhosts.txt
 
-
-# Change up a variable number of directories
-# E.g:
-#   cu   -> cd ../
-#   cu 2 -> cd ../../
-#   cu 3 -> cd ../../../
-function cu {
-    local count=$1
-    if [ -z "${count}" ]; then
-        count=1
-    fi
-    local path=""
-    for i in $(seq 1 ${count}); do
-        path="${path}../"
-    done
-    cd $path
-}
-
 # Prompt colours
 atC="%F{38}"
 nameC="%F{245}"
@@ -102,13 +84,13 @@ hostC="%F{245}"
 pathC="%F{172}"
 gitC="%F{245}"
 pointerC="%F{40}"
-normalC="%F{white}"
 borderC="%F{38}"
 
 # Red name for root
 if [ "${UID}" -eq "0" ]; then 
-  nameC="%F{red}" 
+  nameC="%F{167}" 
 fi
 
 # Prompt
-PROMPT="%f${nameC}%m%f${atC}:%f${borderC}[%f${pathC}%d%f${borderC}]%f%(?.${pointerC}.%F{196}) » %f${normalC}"
+NEWLINE=$'\n'
+PROMPT="%f${nameC}%m%f${atC}:%f${borderC}[%f${pathC}%d%f${borderC}]%f%(?.${pointerC}.%F{196})${NEWLINE}» %f"
