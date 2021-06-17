@@ -23,9 +23,12 @@ bindkey "$key[Down]" down-line-or-beginning-search
 # History control
 HISTFILE=~/.zsh_history
 HISTCONTROL=ignoredups:ignorespace
-HISTSIZE=100000
-HISTFILESIZE=2000000
-setopt appendhistory
+HISTSIZE=50000000
+HISTFILESIZE=50000000
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
 
 # Alias definitions
 alias ls='ls --color=auto -lax'

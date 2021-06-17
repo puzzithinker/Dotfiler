@@ -2,7 +2,7 @@
 
 # nmap
 nmap_quick(){
-    sudo grc nmap -sS -sCV -T4 -Pn --top-ports 5000 -oA ./nmap-quick-$1-5000p-%m%d --max-retries 2 --host-timeout 10m  --script-timeout 10m --defeat-rst-ratelimit $1
+    sudo grc nmap -sS -sCV -T4 -Pn --top-ports 5000 -oA ./nmap-quick-$1-5000p-%m%d --max-retries 1 --host-timeout 10m  --script-timeout 10m --defeat-rst-ratelimit $1
 }
 
 nmap_ss(){
