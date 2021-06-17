@@ -84,3 +84,4 @@ Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.co
 - [Kerbrute](https://github.com/ropnop/kerbrute)
 - [BloodHound.py Ingestor](https://github.com/fox-it/BloodHound.py)
 - [tennc webshell](https://github.com/tennc/webshell)
+- [page-fetch](https://github.com/detectify/page-fetch)

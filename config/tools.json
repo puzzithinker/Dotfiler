@@ -245,6 +245,11 @@
             "name":"kerbrute",
             "url":"github.com/ropnop/kerbrute",
             "v11":"false"
+        },
+        {
+            "name":"page-fetch",
+            "url":"github.com/detectify/page-fetch",
+            "v11":"false"
         }
     ]
 }
