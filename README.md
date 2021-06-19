@@ -2,17 +2,13 @@
 Dotfiler
 </h1>
 
-**Dotfiler** is a Bash tool to quickly set up Kali/Parrot machines with personal presets.
+## What
+**Dotfiler** is a Bash tool created to quickly set up Kali/Parrot machines with personal presets.
 
-## Install
-```bash
-▶ git clone https://github.com/JakeWnuk/dotfiler.git
-```
+## Why
+**Dotfiler** is an installer that sets up several network and web application penetration testing tools. Configuration dotfiles are symbolic linked with `stow` for administration. I am not the author of the installed tools, and the user takes full responsibility for responsibly using the tools.
 
-## Features
-**Dotfiler** is an automated installer that sets up several network and web application penetration testing tools setting up new environments quickly. Configuration dotfiles can be stored within the dotfiles folder to be automatically symbolic linked with `stow` for easy administration. Users who maintain their dotfiles in a VCS can quickly swap the folder contents for their own presets.
-
-Based on and inspired by the work on `axiom-local` by [pry0cc](https://github.com/pry0cc) and [tomnomnom](https://github.com/tomnomnom/dotfiles).
+## Whats in it
 
 ### Packages
 - [Oh My Tmux](https://github.com/gpakosz/.tmux)
