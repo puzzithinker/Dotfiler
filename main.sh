@@ -103,11 +103,14 @@ gf -save filter-webcontent -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.tt
 
 # end
 echo 'Finished set up. Updating Machine...'
-# please read content of script before running
+# please read content of scripts before running
+# updates box and tools and creates grc alias file
+bash $cwd/config/grc-config.sh
 bash $cwd/config/updater.sh
 # pipx install
 pipx install arjun
 pipx install crackmapexec
 pipx install impacket
 pipx install bloodhound
+pipx install nmaptocsv
 echo 'Completed!'

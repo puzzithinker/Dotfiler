@@ -1,58 +1,26 @@
 # alias functions
 
 # nmap
-nmap_quick(){
+nmap_box(){
     sudo grc nmap -sS -sCV -T4 -Pn --top-ports 5000 -oA ./nmap-quick-$1-5000p-%m%d --max-retries 1 --host-timeout 10m  --script-timeout 10m --defeat-rst-ratelimit $1
-}
-
-nmap_ss(){
-    sudo grc nmap -sS -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 2 --host-timeout 60m  --script-timeout 60m --defeat-rst-ratelimit $1
-}
-
-nmap_su(){
-    sudo grc nmap -sU -T4 -Pn -p- -oA ./nmap-su-$1-65535p-%m%d --max-retries 2 --host-timeout 90m  --script-timeout 90m $1
-}
-
-# takes in host, target ports, and script regex
-nmap_trgt_scrpt(){
-    echo 'nmap_trgt_scrpt IP PORT REGEX'
-    echo 'sudo nmap -sSCV -O -Pn -p '$2'  -oA ./nmap-scrpt-'$1'-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script='$3' '$1''
-    sudo grc nmap -sSCV -O -Pn -p $2  -oA ./nmap-scrpt-$1-trgtp-%m%d --max-retries 4 --host-timeout 90m  --script-timeout 90m --script=$3 $1
+    sudo grc nmap -sSV -T4 -Pn -p- -oA ./nmap-ss-$1-65535p-%m%d --max-retries 2 --host-timeout 60m  --script-timeout 60m --defeat-rst-ratelimit $1
+    sudo grc nmap -sUV -T4 -Pn -p20000 -oA ./nmap-su-$1-20000p-%m%d --max-retries 2 --host-timeout 90m  --script-timeout 90m $1
 }
 
 nmapprev(){
-    find -type f -name 'nmap-*.gnmap' -exec cat {} \; | grep 'Host' | sort -u | grep -vi 'up' | vi - 
+    find -type f -name '*.nmap' -exec cat {} \; | nmaptocsv | column -s '";"' -t
 }
 
 nsearch(){
     ls -l /usr/share/nmap/scripts/* | grep -i $1 | awk -F 'scripts/' '{ print $2 }'
+    nmap --script-help=$1 2>/dev/null | grep -v 'Starting Nmap'
 }
 
 # ffuf
-ffuf_dir(){
-    dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $DIRS_PATHS -o ffuf_dirs_'$dom'.csv'
-    ffuf -u $1/FUZZ -w $DIRS_PATHS -o ffuf_dirs_$dom.csv
-}
-
-ffuf_file(){
-    dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $FILE_EXT -o ffuf_files_'$dom'.csv'
-    ffuf -u $1/FUZZ -w $FILE_EXT -o ffuf_files_$dom.csv
-}
-
 ffuf_recursive(){
+    echo 'FORMAT URL WORDLIST'
     dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZ -w $DIRS_RECURSE -recursion -recursion-depth 5 -o ffuf_recursive_'$dom'.csv'
-    ffuf -u $1/FUZZ -w $DIRS_RECURSE -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
-}
-
-# takes a param of a url
-# results are excluded from ffufprev
-ffuf_file_ext(){
-    dom=$(echo $1 | unfurl format %s-%d)
-    echo 'ffuf -u '$1'/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_'$dom'.csv'
-    ffuf -u $1/FUZZEXT -w $EXT_SMALL:EXT -w $WORDS_SMALL:FUZZ -o ffuf-file_ext_$dom.csv
+    ffuf -u $1/FUZZ -w $2 -recursion -recursion-depth 5 -o ffuf_recursive_$dom.csv
 }
 
 ffuf_vhost(){
@@ -60,14 +28,11 @@ ffuf_vhost(){
     domain=$(echo $1 | unfurl format %d)
     rootdom=$(echo $1 | unfurl format %r)
 
-    # creates a local wordlist with domain and root domain subs
-    cat $VHOSTS | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' > ./vhosts_wordlist_$dom.txt
-    echo 'ffuf -u '$1' -H "Host: FUZZ" -w ./vhosts_wordlist_'$dom'.txt -fc 400,404 -o ffuf_vhost_'$dom'.csv -acc '$domain''
-    ffuf -u $1 -H "Host: FUZZ" -w ./vhosts_wordlist_$dom.txt -fc 400,404 -o ffuf_vhost_$dom.csv -acc $domain
+    cat $VHOSTS | sed 's/%d/'"$domain"'/' | sed 's/%r/'"$rootdom"'/' | ffuf -u $1 -H "Host: FUZZ" -w - -fc 400,404 -o ffuf_vhost_$dom.csv -acc $domain
 }
 
 ffufprev(){
-    find -name "ffuf_*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | sed 's/,/ /g' | sort -k 5,5 -u -n | column -t -s' '  | vim -
+    find -name "ffuf*.csv" -exec cat {} \; | grep -vE ',302,|,429,|,400,|,404,|,500,|,501,|,502,|,503,' | cut -d ',' -f1,2,5,6,7,8,9 | column -s ',' -t | sort -u -n -k 4
 }
 
 # kiterunner

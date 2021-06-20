@@ -32,6 +32,16 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_FIND_NO_DUPS
 
+# functions file
+if [ -f ~/.sh_aliases ]; then
+    . ~/.sh_aliases
+fi
+
+# grc file              
+if [ -f ~/.grc_aliases ]; then
+    . ~/.grc_aliases
+fi
+
 # Alias definitions
 alias ls='ls --color=auto -lax'
 alias ll='ls --color=auto -l'
@@ -42,11 +52,6 @@ alias ungron="gron --ungron"
 alias ks='ls'
 alias :q="exit"
 alias _='sudo'
-
-# functions file
-if [ -f ~/.sh_aliases ]; then
-    . ~/.sh_aliases
-fi
 
 # Color
 export TERM="xterm-256color"
