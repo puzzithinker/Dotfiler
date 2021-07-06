@@ -84,12 +84,12 @@ export VHOSTS=~/wordlists/custom/vhosts.txt
 
 # Prompt colours
 atC="%F{38}"
-nameC="%F{245}"
+nameC="%F{38}"
 hostC="%F{245}"
 pathC="%F{172}"
 gitC="%F{245}"
 pointerC="%F{40}"
-borderC="%F{38}"
+borderC="%F{245}"
 
 # Red name for root
 if [ "${UID}" -eq "0" ]; then 

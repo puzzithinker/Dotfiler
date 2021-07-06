@@ -68,7 +68,6 @@ done
 sudo git clone https://github.com/codingo/Interlace.git /opt/interlace && cd /opt/interlace/ && sudo python3 setup.py install
 git clone https://github.com/blechschmidt/massdns.git /tmp/massdns && cd /tmp/massdns && make && sudo mv bin/massdns /usr/bin/massdns
 wget -O /tmp/aquatone.zip https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip && cd /tmp/ && sudo unzip /tmp/aquatone.zip && sudo mv /tmp/aquatone $HOME/go/bin/aquatone
-wget -O /tmp/amass.zip https://github.com/OWASP/Amass/releases/download/v3.11.1/amass_linux_amd64.zip && cd /tmp/ && sudo unzip /tmp/amass.zip && sudo mv /tmp/amass_linux_amd64/amass $HOME/go/bin/amass
 wget -O /tmp/kiterunner.tar.gz https://github.com/assetnote/kiterunner/releases/download/v1.0.2/kiterunner_1.0.2_linux_amd64.tar.gz && cd /tmp/ && sudo tar -xf kiterunner.tar.gz && sudo mv ./kr /bin/kr
 mkdir ~/.zsh/; wget -O ~/.zsh/zsh-z.plugin.zsh https://raw.githubusercontent.com/agkozak/zsh-z/master/zsh-z.plugin.zsh
 

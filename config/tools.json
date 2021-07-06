@@ -250,6 +250,11 @@
             "name":"page-fetch",
             "url":"github.com/detectify/page-fetch",
             "v11":"false"
+        },
+        {
+            "name":"amass",
+            "url":"github.com/OWASP/Amass/v3/...",
+            "v11":"false"
         }
     ]
 }
