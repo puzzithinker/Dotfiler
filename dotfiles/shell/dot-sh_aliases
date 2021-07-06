@@ -108,20 +108,6 @@ function bin2shellcode {
     hexdump -v -e '"\\""x" 1/1 "%02x" ""' ${1}
 }
 
-# axiom
-makefleet(){
-    fleet=$1
-
-    total=0
-    while [[ "$total" -lt $2 ]];
-    do
-        axiom-fleet "$fleet" -i=10
-        total=$((total+10))
-        echo "Spun up $total"
-        sleep 60
-    done
-}
-
 # cidr2ip
 cidr2ip(){
 	nmap -sL $1 | awk '/Nmap scan report/{print $NF}'
