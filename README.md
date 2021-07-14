@@ -6,7 +6,9 @@ Dotfiler
 **Dotfiler** is a Bash tool created to quickly set up Kali/Parrot machines with personal presets.
 
 ## Why
-**Dotfiler** is an installer that sets up several network and web application penetration testing tools. Configuration dotfiles are symbolic linked with `stow` for administration. I am not the author of the installed tools, and the user takes full responsibility for responsibly using the tools.
+**Dotfiler** is an installer that sets up several network and web application penetration testing tools. Configuration dotfiles are symbolic linked with `stow` for administration. 
+
+I am not the author of the installed tools, and the user takes full responsibility for ethically using the tools.
 
 ## Whats in it
 
@@ -19,6 +21,8 @@ Dotfiler
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-airline](https://github.com/vim-airline/vim-airline)
 - [vim-go](https://github.com/fatih/vim-go)
+- [Z](https://github.com/agkozak/zsh-z)
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 ### Repositories
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
