@@ -10,7 +10,7 @@ cwd=$(echo $PWD)
 echo 'Preparing Base Packages'
 
 sudo apt-get update -qq
-sudo apt install -y tmux jq golang parallel grc python3-venv exploitdb zsh-syntax-highlighting
+sudo apt install -y tmux jq golang parallel grc python3-venv exploitdb zsh-syntax-highlighting fonts-powerline
 
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
