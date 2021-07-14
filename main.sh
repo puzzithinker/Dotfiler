@@ -91,7 +91,7 @@ cd $HOME/wordlists/assetnote && wget -r --no-parent -R "index.html*" https://wor
 cd ./data/kiterunner && sudo tar -xf routes-small.kite.tar.gz  && sudo tar -xf routes-large.kite.tar.gz
 
 # custom wordlists
-cp $cwd/config/wordlists/wordlists.zip $HOME/wordlists/custom.zip && sudo unzip $HOME/wordlists/custom.zip -d $HOME/wordlists/custom/ && sudo rm -rf $HOME/wordlists/custom.zip
+mkdir -p $HOME/wordlists/custom/ && cp $cwd/config/wordlists/* $HOME/wordlists/custom/
 # set up vimprev
 sudo cp $cwd/config/vimprev /bin/vimprev && sudo chmod +x /bin/vimprev
 # set up vimprev

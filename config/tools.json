@@ -1,49 +1,49 @@
 {
     "git":[
         {
-          "name":"gf-patterns",
-          "url":"github.com/1ndianl33t/Gf-Patterns",
-          "directory":"$HOME/.gf"
+            "name":"gf-patterns",
+            "url":"github.com/1ndianl33t/Gf-Patterns",
+            "directory":"$HOME/.gf"
         },
         {
-          "name":"payloadsallthethings",
-          "url":"github.com/swisskyrepo/PayloadsAllTheThings",
-          "directory":"$HOME/tools/payloadsAllTheThings"
+            "name":"payloadsallthethings",
+            "url":"github.com/swisskyrepo/PayloadsAllTheThings",
+            "directory":"$HOME/tools/payloadsAllTheThings"
         },
         {
-          "name":"powersploit",
-          "url":"github.com/PowerShellMafia/PowerSploit",
-          "directory":"$HOME/tools/powersploit"
+            "name":"powersploit",
+            "url":"github.com/PowerShellMafia/PowerSploit",
+            "directory":"$HOME/tools/powersploit"
         },
         {
-          "name":"nishang",
-          "url":"github.com/samratashok/nishang",
-          "directory":"$HOME/tools/nishang"
+            "name":"nishang",
+            "url":"github.com/samratashok/nishang",
+            "directory":"$HOME/tools/nishang"
         },
         {
-          "name":"watson",
-          "url":"github.com/rasta-mouse/watson",
-          "directory":"$HOME/tools/watson"
+            "name":"watson",
+            "url":"github.com/rasta-mouse/watson",
+            "directory":"$HOME/tools/watson"
         },
         {
-          "name":"impacket",
-          "url":"github.com/SecureAuthCorp/impacket",
-          "directory":"$HOME/tools/impacket"
+            "name":"impacket",
+            "url":"github.com/SecureAuthCorp/impacket",
+            "directory":"$HOME/tools/impacket"
         },
         {
-          "name":"evil-winrm",
-          "url":"github.com/Hackplayers/evil-winrm",
-          "directory":"$HOME/tools/evil-winrm"
+            "name":"evil-winrm",
+            "url":"github.com/Hackplayers/evil-winrm",
+            "directory":"$HOME/tools/evil-winrm"
         },
         {
-          "name":"linkfinder",
-          "url":"github.com/GerbenJavado/LinkFinder",
-          "directory":"$HOME/tools/linkfinder"
+            "name":"linkfinder",
+            "url":"github.com/GerbenJavado/LinkFinder",
+            "directory":"$HOME/tools/linkfinder"
         },
         {
-          "name":"secretfinder",
-          "url":"github.com/m4ll0k/SecretFinder",
-          "directory":"$HOME/tools/secretfinder"
+            "name":"secretfinder",
+            "url":"github.com/m4ll0k/SecretFinder",
+            "directory":"$HOME/tools/secretfinder"
         },
         {
             "name":"privilege-escalation-awesome-scripts-suite",
@@ -123,18 +123,8 @@
 
     "go":[
         {
-            "name":"httprobe",
-            "url":"github.com/tomnomnom/httprobe",
-            "v11":"false"
-        },
-        {
             "name":"anew",
             "url":"github.com/tomnomnom/anew",
-            "v11":"false"
-        },
-        {
-            "name":"fff",
-            "url":"github.com/tomnomnom/fff",
             "v11":"false"
         },
         {
@@ -167,11 +157,6 @@
             "url":"github.com/tomnomnom/gf",
             "v11":"false"
         },
-        { 
-            "name":"concurl",
-            "url":"github.com/tomnomnom/hacks/concurl",
-            "v11":"false"
-        },
         {
             "name":"unfurl",
             "url":"github.com/tomnomnom/unfurl",
@@ -180,11 +165,6 @@
         {
             "name":"hakrawler",
             "url":"github.com/hakluke/hakrawler",
-            "v11":"false"
-        },
-        {
-            "name":"subgen",
-            "url":"github.com/pry0cc/subgen",
             "v11":"false"
         },
         {  
