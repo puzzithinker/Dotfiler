@@ -55,28 +55,6 @@ export WORDS_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-words.
 export WORDS_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-words.txt
 export EXT_LARGE=~/wordlists/assetnote-wordlists/data/manual/raft-large-extensions.txt
 export EXT_SMALL=~/wordlists/assetnote-wordlists/data/manual/raft-small-extensions.txt
-export DIRS_RECURSE=~/wordlists/custom/dir-recursive-tokens-wordlist.txt
-export DIRS_PATHS=~/wordlists/custom/dir-full-paths-wordlist.txt
-export FILE_EXT=~/wordlists/custom/file-w-ext-wordlist.txt
-export VHOSTS=~/wordlists/custom/vhosts.txt
-
-
-# Change up a variable number of directories
-# E.g:
-#   cu   -> cd ../
-#   cu 2 -> cd ../../
-#   cu 3 -> cd ../../../
-function cu {
-    local count=$1
-    if [ -z "${count}" ]; then
-        count=1
-    fi
-    local path=""
-    for i in $(seq 1 ${count}); do
-        path="${path}../"
-    done
-    cd $path
-}
 
 # 'Safe' version of __git_ps1 to avoid errors on systems that don't have it
 function gitPrompt {

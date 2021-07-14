@@ -81,3 +81,5 @@ Dotfiler
 - [BloodHound.py Ingestor](https://github.com/fox-it/BloodHound.py)
 - [tennc webshell](https://github.com/tennc/webshell)
 - [page-fetch](https://github.com/detectify/page-fetch)
+- [dnsvalidator](https://github.com/vortexau/dnsvalidator)
+- [proxify](https://github.com/projectdiscovery/proxify)

@@ -94,7 +94,13 @@
             "name":"tennc webshell",
             "url":"github.com/tennc/webshell",
             "directory":"$HOME/tools/webshell"
+        },
+        {
+            "name":"dnsvalidator",
+            "url":"github.com/vortexau/dnsvalidator",
+            "directory":"$HOME/tools/dnsvalidator"
         }
+
     ],
 
     "wordlists":[
@@ -255,6 +261,11 @@
             "name":"amass",
             "url":"github.com/OWASP/Amass/v3/...",
             "v11":"false"
+        },
+        {
+            "name":"proxify",
+            "url":"github.com/projectdiscovery/proxify",
+            "v11":"true"
         }
     ]
 }
