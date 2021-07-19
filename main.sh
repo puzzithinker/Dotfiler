@@ -10,7 +10,7 @@ cwd=$(echo $PWD)
 echo 'Preparing Base Packages'
 
 sudo apt-get update -qq
-sudo apt install -y tmux jq golang parallel grc python3-venv exploitdb zsh-syntax-highlighting fonts-powerline chromium
+sudo apt install -y tmux jq golang parallel grc python3-venv exploitdb zsh-syntax-highlighting fonts-powerline chromium docker.io mosh
 
 # pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
@@ -34,6 +34,10 @@ done
 source ~/.bashrc; source ~/.zshrc
 sudo chsh -s $(which zsh) $user
 touch $HOME/.z
+
+# docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker --now
 
 # install Go Tools
 echo 'Installing Go Tools'
@@ -98,7 +102,10 @@ sudo cp $cwd/config/vimprev /bin/vimprev && sudo chmod +x /bin/vimprev
 sudo cp $cwd/config/bypass4031 /bin/bypass4031 && sudo chmod +x /bin/bypass4031
 # copy over gf patterns
 cp -r $GOPATH/src/github.com/tomnomnom/gf/examples/* ~/.gf
-gf -save filter-webcontent -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.ttf'
+
+# want to put these in a folder eventually
+gf -save webcontent-filter -ivE '*.css|*.eos|*.jpg|*.png|*.gif|*.svg|*.woff|*.ttf'
+gf -save whois-filter -E 'NetRange|CIDR|Customer|CustName|Organization|OrgName'
 
 # end
 echo 'Finished set up. Updating Machine...'
@@ -112,4 +119,5 @@ pipx install crackmapexec
 pipx install impacket
 pipx install bloodhound
 pipx install nmaptocsv
+pipx install csvtomd
 echo 'Completed!'
