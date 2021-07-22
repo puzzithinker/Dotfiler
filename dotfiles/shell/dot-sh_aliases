@@ -100,5 +100,10 @@ add_word_from_file(){
 
 # hashcat
 combinator(){
-	/usr/lib/hashcat-utils/combinator.bin $1 $2
+    if [[ $# -ne 3 ]]; then
+        /usr/lib/hashcat-utils/combinator.bin $1 $2
+    else
+        /usr/lib/hashcat-utils/combinator3.bin $1 $2 $3
+    fi
 }
+
