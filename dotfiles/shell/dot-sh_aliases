@@ -97,3 +97,8 @@ add_word(){
 add_word_from_file(){
 	while read line;do add_word $line;done < $1
 }
+
+# hashcat
+combinator(){
+	/usr/lib/hashcat-utils/combinator.bin $1 $2
+}
