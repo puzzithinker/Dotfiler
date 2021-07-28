@@ -8,7 +8,7 @@ nmap_box(){
 }
 
 nmapprev(){
-    find -type f -name '*.nmap' -exec cat {} \; | nmaptocsv | column -s '";"' -t
+    find -type f -name '*.gnmap' -exec cat {} \; | nmaptocsv | column -s '";"' -t
 }
 
 nsearch(){
