@@ -12,6 +12,12 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 # partial completion suggestions
 zstyle ':completion:*' list-suffixeszstyle ':completion:*' expand prefix suffix
 
+# Arrow binds
+bindkey '^[[1;5C' forward-word                    # ctrl + ->
+bindkey '^[[C' forward-word                       # ctrl + ->
+bindkey '^[[1;5D' backward-word                   # ctrl + <-
+bindkey '^[[D' backward-word                      # ctrl + <-
+
 # Fix searching
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
@@ -94,4 +100,4 @@ fi
 
 # Prompt
 NEWLINE=$'\n'
-PROMPT="%f${nameC}%m%f${atC}:%f${borderC}[%f${pathC}%d%f${borderC}]%f%(?.${pointerC}.%F{196})${NEWLINE}» %f"
+PROMPT="%f${nameC}%m%f${atC}:%f${borderC}[%f${pathC}%~%f${borderC}]%f%(?.${pointerC}.%F{196})${NEWLINE}» %f"

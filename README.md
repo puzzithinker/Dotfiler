@@ -25,8 +25,6 @@ I am not the author of the installed tools, and the user takes full responsibili
 - [Z](https://github.com/agkozak/zsh-z)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
-- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
-- [Nishang](https://github.com/samratashok/nishang)
 
 ### Wordlists
 - [Jhaddix's](https://gist.github.com/jhaddix/f64c97d0863a78454e44c2f7119c2a6a)
@@ -37,6 +35,8 @@ I am not the author of the installed tools, and the user takes full responsibili
 - [AssetNote's](https://wordlists.assetnote.io/)
 
 ### Tools
+- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
+- [Nishang](https://github.com/samratashok/nishang)
 - [Interlace](https://github.com/codingo/Interlace)
 - [MassDNS](https://github.com/blechschmidt/massdns)
 - [Aquatone](https://github.com/michenriksen/aquatone)
@@ -83,3 +83,4 @@ I am not the author of the installed tools, and the user takes full responsibili
 - [dnsvalidator](https://github.com/vortexau/dnsvalidator)
 - [proxify](https://github.com/projectdiscovery/proxify)
 - [csvtomd](https://github.com/mplewis/csvtomd)
+- [nmaptocsv](https://github.com/maaaaz/nmaptocsv)

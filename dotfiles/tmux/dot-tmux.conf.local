@@ -179,8 +179,8 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=' ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
+tmux_conf_theme_status_left=''
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} , %R | #{username}#{root} | #{hostname} '
 
 # status left style
 tmux_conf_theme_status_left_fg='#cad0c4,#e4e4e4'  # black, white , white
@@ -208,7 +208,7 @@ tmux_conf_theme_prefix_attr='none'
 tmux_conf_theme_root='!'
 tmux_conf_theme_root_fg='none'
 tmux_conf_theme_root_bg='none'
-tmux_conf_theme_root_attr='bold,blink'
+tmux_conf_theme_root_attr='bold'
 
 # synchronized indicator
 tmux_conf_theme_synchronized='🔒'     # U+1F512
