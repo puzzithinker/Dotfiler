@@ -91,11 +91,6 @@
             "directory":"$HOME/tools/LinEnum"
         },
         {
-            "name":"tennc webshell",
-            "url":"github.com/tennc/webshell",
-            "directory":"$HOME/tools/webshell"
-        },
-        {
             "name":"dnsvalidator",
             "url":"github.com/vortexau/dnsvalidator",
             "directory":"$HOME/tools/dnsvalidator"
