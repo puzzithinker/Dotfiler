@@ -107,3 +107,12 @@ combinator(){
     fi
 }
 
+add_pot(){
+    cat ~/.hashcat/hashcat.potfile | cut -d ':' -f2 | anew -q $1
+}
+
+hashcat_rules(){
+    ls /usr/share/hashcat/rules
+}
+
+
