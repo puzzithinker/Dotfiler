@@ -36,15 +36,16 @@ ffufprev(){
 
 # nuclei (rez0)
 nuclei_site(){
-    echo $1 | nuclei -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
-    -t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
-	-t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 30
+    echo $1 | nuclei -t cves/ -t exposed-panels/ -t default-logins/ \
+    -t exposures/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
+    -t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 15
 }
 nuclei_file(){
-    nuclei -l $1 -t cves/ -t exposed-tokens/ -t exposed-tokens/ \
-	-t exposed-tokens/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
-	-t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 50
+    nuclei -l $1 -t cves/ -t exposed-panels/ -t default-logins/ \
+    -t exposures/ -t vulnerabilities/ -t fuzzing/ -t misconfiguration/ \
+    -t miscellaneous/dir-listing.yaml -H "User-Agent: Mozilla Firefox Mozilla/5.0" -c 15
 }
+
 
 # http verb tampering (rez0)
 tamper_verbs() {
