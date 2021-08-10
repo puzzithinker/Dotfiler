@@ -113,7 +113,7 @@ add_pot(){
 }
 
 hashcat_rules(){
-    ls /usr/share/hashcat/rules
+    wc -l `find /usr/share/hashcat/rules -type f` | sort -g -k 1,1
 }
 
 
