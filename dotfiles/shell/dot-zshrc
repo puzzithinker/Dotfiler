@@ -49,13 +49,13 @@ if [ -f ~/.grc_aliases ]; then
 fi
 
 # Alias definitions
-alias ls='ls --color=auto -lax'
-alias ll='ls --color=auto -l'
+alias ls='ls --color=auto -lashx'
+alias ll='ls --color=auto -lash'
 alias la='ls --color=auto -A'
 alias l='ls --color=auto -CF' 
 alias grep='grep --color=auto'
 alias ungron="gron --ungron"
-alias ks='ls'
+alias ks='ls -lashtx '
 alias :q="exit"
 alias _='sudo'
 
@@ -100,4 +100,4 @@ fi
 
 # Prompt
 NEWLINE=$'\n'
-PROMPT="%f${nameC}%m%f${atC}:%f${borderC}[%f${pathC}%~%f${borderC}]%f%(?.${pointerC}.%F{196})${NEWLINE}» %f"
+PROMPT="%f${nameC}%m%f${atC}:%f${borderC}[%f${pathC}%~%f${borderC}]%f%(?.${pointerC}.%F{196})${NEWLINE}$ %f"

@@ -16,13 +16,13 @@ if ! shopt -oq posix; then
 fi
 
 # Alias definitions
-alias ls='ls --color=auto -lax'
-alias ll='ls --color=auto -l'
+alias ls='ls --color=auto -lashx'
+alias ll='ls --color=auto -lash'
 alias la='ls --color=auto -A'
 alias l='ls --color=auto -CF' 
 alias grep='grep --color=auto'
 alias ungron="gron --ungron"
-alias ks='ls'
+alias ks='ls -lashtx '
 alias :q="exit"
 alias _='sudo'
 
@@ -130,7 +130,7 @@ __prompt_command() {
         atC="${txtgrn}"
         borderC="${txtgrn}"
     fi
-    PS1+="${nameC}\u${atC}:${borderC}[${pathC}\w${borderC}]${gitC}\$(gitPrompt)${pointerC} » ${normalC}"
+    PS1+="${nameC}\u${atC}:${borderC}[${pathC}\w${borderC}]${gitC}\$(gitPrompt)${pointerC} $ ${normalC}"
 }
 
 # Local settings go last
